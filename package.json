@@ -1,0 +1,33 @@
+{
+  "name": "cnc-tskit",
+  "version": "0.0.5",
+  "description": "Bunch of reusable TypeScript functions",
+  "main": "dist-cjs/index.js",
+  "module": "dist-es6/index.js",
+  "jsnext:main": "dist-es6/index.js",
+  "browser": "dist-umd/cnc-tskit.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/czcorpus/cnc-tskit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/czcorpus/cnc-tskit/issues"
+  },
+  "keywords": [
+    "collections"
+  ],
+  "author": "Tomas Machalek <tomas.machalek@gmail.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/czcorpus/cnc-tskit#readme",
+  "devDependencies": {
+    "rollup": "^1.31.0",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "rollup-plugin-uglify": "^6.0.4",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.5"
+  }
+}

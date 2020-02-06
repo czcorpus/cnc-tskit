@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "rootDir": ".",
+      "module": "esnext",
+      "target": "esnext",
+      "outDir": "../../dist",
+      "declaration": true,
+      "declarationDir": "../..",
+      "inlineSourceMap": true,
+      "strictNullChecks": true
+    },
+    "files": [
+        "index.ts",
+        "collections/index.ts"
+     ]
+  }
