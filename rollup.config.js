@@ -15,7 +15,7 @@ export default [
 		plugins: [
 			typescript({
                 typescript: require('typescript'),
-                tsconfig: './src/tsconfig.json',
+                tsconfig: './tsconfig.json',
                 tsconfigOverride:  {
                     compilerOptions: {
                         declaration: false,
@@ -29,8 +29,7 @@ export default [
     },
 	{
         input: {
-            'index': 'src/index.ts',
-            'collections': 'src/collections/index.ts'
+            'index': 'src/index.ts'
         },
         output: [
 			{ dir: path.dirname(pkg.main), format: 'cjs' },
@@ -40,7 +39,7 @@ export default [
 		plugins: [
 			typescript({
                 typescript: require('typescript'),
-                tsconfig: "./src/tsconfig.json",
+                tsconfig: "./tsconfig.json",
             })
 		]
     }
