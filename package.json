@@ -7,6 +7,9 @@
   "jsnext:main": "dist-es6/index.js",
   "browser": "dist-umd/cnc-tskit.js",
   "types": "dist-cjs/index.d.ts",
+  "exports": {
+    "collections": "./dist-es6/collections"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +26,11 @@
   "author": "Tomas Machalek <tomas.machalek@gmail.com>",
   "license": "Apache-2.0",
   "homepage": "https://github.com/czcorpus/cnc-tskit#readme",
+  "files": [
+    "dist-cjs/*",
+    "dist-es6/*",
+    "dist-umd/*"
+  ],
   "devDependencies": {
     "rollup": "^1.31.0",
     "rollup-plugin-typescript2": "^0.25.3",

@@ -29,11 +29,12 @@ export default [
     },
 	{
         input: {
-            'index': 'src/index.ts'
+            'index': 'src/index.ts',
+            'collections': 'src/collections/index.ts'
         },
         output: [
 			{ dir: path.dirname(pkg.main), format: 'cjs' },
-			{ dir: path.dirname(pkg.module), format: 'es' }
+			{ dir: path.dirname(pkg.module), format: 'esm' }
 		],
         external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
 		plugins: [
