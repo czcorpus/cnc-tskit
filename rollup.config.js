@@ -35,7 +35,7 @@ export default [
 			{ dir: path.dirname(pkg.main), format: 'cjs' },
 			{ dir: path.dirname(pkg.module), format: 'es' }
 		],
-        external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+        external: ['chai', ...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
 		plugins: [
 			typescript({
                 typescript: require('typescript'),
