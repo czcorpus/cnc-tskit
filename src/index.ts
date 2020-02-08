@@ -20,6 +20,8 @@ import { Fn } from './common';
 
 export { Dict, List } from './collections/index';
 
+export { Color } from './colors'; 
+
 
 /**
  * Apply one or more functions (from left to right) to a provided argument.
