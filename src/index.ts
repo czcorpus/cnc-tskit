@@ -20,7 +20,9 @@ import { Fn } from './common';
 
 export { Dict, List } from './collections/index';
 
-export { Color } from './colors'; 
+export { Color } from './colors';
+
+export { HTTP } from './http';
 
 
 /**
