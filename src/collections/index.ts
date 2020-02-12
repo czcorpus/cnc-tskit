@@ -43,6 +43,21 @@ export namespace List {
         return ans;
     }
 
+    /**
+     *
+     * @param from lower limit (inclusive)
+     * @param to upper limit (exclusive)
+     * @param step either positive or negative number
+     */
+    export function range(from:number, to:number, step:number = 1):Array<number> {
+        const ans:Array<number> = [];
+        const cmp = step >= 0 ? (i:number) => i < to : (i:number) => i > to;
+        for (let i = from; cmp(i); i += step) {
+            ans.push(i);
+        }
+        return ans;
+    }
+
     export function zip<T, U>(incoming:Array<U>, data:Array<T>):Array<[T, U]>;
     export function zip<T, U>(incoming:Array<U>):(data:Array<T>)=>Array<[T, U]>;
     export function zip<T, U>(incoming:Array<U>, data?:Array<T>):any {
@@ -72,20 +87,9 @@ export namespace List {
     }
 
     /**
-     *
-     * @param from lower limit (inclusive)
-     * @param to upper limit (exclusive)
-     * @param step
+     * Get min and max items
+     * @param cmp
      */
-    export function range(from:number, to:number, step:number = 1):Array<number> {
-        const ans:Array<number> = [];
-        for (let i = 0; i < to; i += step) {
-            ans.push(i);
-        }
-        return ans;
-    }
-
-
     export function findRange<T>(cmp:(v1:T, v2:T)=>number):(data:Array<T>)=>[T, T];
     export function findRange<T>(cmp:(v1:T, v2:T)=>number, data:Array<T>):[T, T];
     export function findRange<T>(cmp:(v1:T, v2:T)=>number, data?:Array<T>):any {
