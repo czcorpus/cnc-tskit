@@ -1,12 +1,12 @@
 {
   "name": "cnc-tskit",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Bunch of reusable TypeScript functions",
   "main": "dist-cjs/index.js",
   "module": "dist-es6/index.js",
   "jsnext:main": "dist-es6/index.js",
+  "types": "dist-es6/index.d.ts",
   "browser": "dist-umd/cnc-tskit.js",
-  "types": "dist-cjs/index.d.ts",
   "scripts": {
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' NODE_ENV=test node_modules/mocha/bin/mocha --require ts-node/register './test/**/*.ts'",
     "clean": "rm -rf ./dist-cjs/* ./dist-es6/* ./dist-umd/*",
