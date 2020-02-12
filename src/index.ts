@@ -24,6 +24,10 @@ export { Color } from './colors';
 
 export { HTTP } from './http';
 
+export { Keyboard } from './keyboard';
+
+export { Ident } from './ident';
+
 
 /**
  * Apply one or more functions (from left to right) to a provided argument.
