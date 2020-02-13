@@ -28,6 +28,7 @@ export { Keyboard } from './keyboard';
 
 export { Ident } from './ident';
 
+export { Maths } from './math';
 
 /**
  * Apply one or more functions (from left to right) to a provided argument.
