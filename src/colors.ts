@@ -19,17 +19,34 @@
 export namespace Color {
 
     export type RGBA = [number, number, number, number];
-    
+
     export function color2str(c:RGBA):string {
         return c !== null ? `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${c[3]})` : 'transparent';
     }
-    
+
     export function textColorFromBg(bgColor:RGBA):RGBA {
         const color = bgColor ? bgColor : [255, 255, 255, 1];
         const lum = 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2];
         return lum > 128 ? [1, 1, 1, 1] : [231, 231, 231, 1];
     }
-    
+
+    /**
+     * Set luminosity where value 1 = leave unchanged, 1.5 = add 50%,
+     * 0.5 = remove 50% etc.
+     * @param color
+     * @param value
+     */
+    export function luminosity(color:RGBA, value:number):RGBA {
+        if (value < 0) {
+            throw new Error('Cannot use negative luminosity');
+        }
+        const ans:RGBA = [color[0], color[1], color[2], color[3]];
+        for (let i = 0; i < 3; i++) {
+            ans[i] = Math.round(Math.min(255, color[i] * value));
+        }
+        return ans;
+    }
+
     export function importColor(color:string, opacity:number):RGBA {
         const fromHex = (pos:number) => parseInt(color.substr(2 * pos + 1, 2), 16);
         if (color.substr(0, 1) === '#') {
@@ -39,7 +56,7 @@ export namespace Color {
                 fromHex(2),
                 parseFloat(opacity.toFixed(1))
             ];
-    
+
         } else if (color.toLowerCase().indexOf('rgb') === 0) {
             const srch = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d\.]+)?\s*\)/i.exec(color);
             if (srch) {
@@ -49,11 +66,11 @@ export namespace Color {
                     parseInt(srch[3]),
                     parseFloat(opacity.toFixed(1))
                 ];
-    
+
             } else {
                 throw new Error('Cannot import color ' + color);
             }
-    
+
         } else {
             throw new Error('Cannot import color ' + color);
         }
