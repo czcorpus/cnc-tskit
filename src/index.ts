@@ -30,6 +30,8 @@ export { Ident } from './ident';
 
 export { Maths } from './math';
 
+export { Strings } from './string';
+
 /**
  * Apply one or more functions (from left to right) to a provided argument.
  */
