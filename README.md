@@ -100,3 +100,7 @@ const total = pipe(
   * calcPercentRatios
   * roundToPos
   * wilsonConfInterval
+  
+## Strings
+  
+  * shortenText
