@@ -18,16 +18,16 @@
 
 export namespace Strings {
 
-    export function shortenText(text:string, maxLength:number):string {
+    export function shortenText(text:string, maxLength:number, suff:string='\u2026'):string {
         const ans:Array<string> = text.split(/\s+/).filter(v =>  !!v);
         let total = ans.length > 0 ? ans[0].length : 0;
         for (let i = 1; i < ans.length; i++) {
             if (total + 1 + ans[i].length > maxLength) {
                 ans.splice(i);
-                return ans.join(' ');
+                return ans.join(' ') + suff;
             }
             total += 1 + ans[i].length;
         }
-        return ans.join(' ').substr(0, maxLength);
+        return ans.join(' ').substr(0, maxLength) + suff;
     }
 }
