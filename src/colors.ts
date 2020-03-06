@@ -20,14 +20,22 @@ export namespace Color {
 
     export type RGBA = [number, number, number, number];
 
-    export function color2str(c:RGBA):string {
-        return c !== null ? `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${c[3]})` : 'transparent';
+    export function color2str():(c:RGBA)=>string;
+    export function color2str(c:RGBA):string;
+    export function color2str(c?:RGBA):any {
+        const fn = (c2:RGBA) => c2 !== null ? `rgba(${c2[0]}, ${c2[1]}, ${c2[2]}, ${c2[3]})` : 'transparent';
+        return c ? fn(c) : fn;
     }
 
-    export function textColorFromBg(bgColor:RGBA):RGBA {
-        const color = bgColor ? bgColor : [255, 255, 255, 1];
-        const lum = 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2];
-        return lum > 128 ? [1, 1, 1, 1] : [231, 231, 231, 1];
+    export function textColorFromBg():(bgColor:RGBA)=>RGBA;
+    export function textColorFromBg(bgColor:RGBA):RGBA;
+    export function textColorFromBg(bgColor?:RGBA):any {
+        const fn = (bgColor2) => {
+            const color = bgColor2 ? bgColor2 : [255, 255, 255, 1];
+            const lum = 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2];
+            return lum > 128 ? [1, 1, 1, 1] : [231, 231, 231, 1];
+        };
+        return bgColor ? fn(bgColor) : fn;
     }
 
     /**
@@ -36,43 +44,53 @@ export namespace Color {
      * @param color
      * @param value
      */
-    export function luminosity(color:RGBA, value:number):RGBA {
-        if (value < 0) {
-            throw new Error('Cannot use negative luminosity');
-        }
-        const ans:RGBA = [color[0], color[1], color[2], color[3]];
-        for (let i = 0; i < 3; i++) {
-            ans[i] = Math.round(Math.min(255, color[i] * value));
-        }
-        return ans;
+    export function luminosity(value:number, color:RGBA):RGBA;
+    export function luminosity(value:number):(color:RGBA)=>RGBA;
+    export function luminosity(value:number, color?:RGBA):any {
+        const fn = (color2:RGBA):RGBA => {
+            if (value < 0) {
+                throw new Error('Cannot use negative luminosity');
+            }
+            const ans:RGBA = [color2[0], color2[1], color2[2], color2[3]];
+            for (let i = 0; i < 3; i++) {
+                ans[i] = Math.round(Math.min(255, color2[i] * value));
+            }
+            return ans;
+        };
+        return color ? fn(color) : fn;
     }
 
-    export function importColor(color:string, opacity:number):RGBA {
-        const fromHex = (pos:number) => parseInt(color.substr(2 * pos + 1, 2), 16);
-        if (color.substr(0, 1) === '#') {
-            return [
-                fromHex(0),
-                fromHex(1),
-                fromHex(2),
-                parseFloat(opacity.toFixed(1))
-            ];
-
-        } else if (color.toLowerCase().indexOf('rgb') === 0) {
-            const srch = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d\.]+)?\s*\)/i.exec(color);
-            if (srch) {
+    export function importColor(opacity:number, color:string):RGBA;
+    export function importColor(opacity:number):(color:string)=>RGBA;
+    export function importColor(opacity:number, color?:string):any {
+        const fn = (color2:string):RGBA => {
+            const fromHex = (pos:number) => parseInt(color2.substr(2 * pos + 1, 2), 16);
+            if (color2.substr(0, 1) === '#') {
                 return [
-                    parseInt(srch[1]),
-                    parseInt(srch[2]),
-                    parseInt(srch[3]),
+                    fromHex(0),
+                    fromHex(1),
+                    fromHex(2),
                     parseFloat(opacity.toFixed(1))
                 ];
 
-            } else {
-                throw new Error('Cannot import color ' + color);
-            }
+            } else if (color2.toLowerCase().indexOf('rgb') === 0) {
+                const srch = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d\.]+)?\s*\)/i.exec(color2);
+                if (srch) {
+                    return [
+                        parseInt(srch[1]),
+                        parseInt(srch[2]),
+                        parseInt(srch[3]),
+                        parseFloat(opacity.toFixed(1))
+                    ];
 
-        } else {
-            throw new Error('Cannot import color ' + color);
-        }
+                } else {
+                    throw new Error('Cannot import color ' + color2);
+                }
+
+            } else {
+                throw new Error('Cannot import color ' + color2);
+            }
+        };
+        return color ? fn(color) : fn;
     }
 }
