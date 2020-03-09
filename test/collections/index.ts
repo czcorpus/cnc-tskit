@@ -20,7 +20,7 @@
 import { List } from '../../src/collections/index';
 import { assert } from 'chai';
 
-describe('List#repeat', () => {
+describe('List#repeat', function () {
 
     it('should repeat 0 times', function () {
         const a = List.repeat(() => 1, 0);
@@ -40,7 +40,7 @@ describe('List#repeat', () => {
 });
 
 
-describe('List#range', () => {
+describe('List#range', function () {
 
     it('works for OK args', function () {
         const ans = List.range(9, 12, 1);
@@ -74,7 +74,7 @@ describe('List#range', () => {
 });
 
 
-describe('List#zip', () => {
+describe('List#zip', function () {
 
     it('should zip two equally long arrays', function () {
         const ans = List.zip([0, 1, 2, 3], ['a', 'b', 'c', 'd']);
@@ -88,7 +88,7 @@ describe('List#zip', () => {
 });
 
 
-describe('List#map', () => {
+describe('List#map', function () {
 
     it('works for a standard configuration', function () {
         const ans = List.map((v => v * 2), [0, 1, 2, 3, 4]);
@@ -104,7 +104,7 @@ describe('List#map', () => {
 });
 
 
-describe('List#get', () => {
+describe('List#get', function () {
 
     it('works for an existing element', function () {
         const ans = List.get(3, [10, 11, 12, 13, 14]);
@@ -127,8 +127,55 @@ describe('List#get', () => {
     });
 });
 
+describe('List#find', function () {
 
-describe('List#findRange', () => {
+    it('works on a regular example', function () {
+        const v = List.find(v => v > 5, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        assert.equal(v, 6)
+    });
+
+    it('works on a regular example using item index', function () {
+        const v = List.find((v, i) => i === 1, ['a', 'b', 'c']);
+        assert.equal(v, 'b');
+    });
+
+    it('returns undefined if nothing found', function () {
+        const v = List.find(v => v > 20, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        assert.isUndefined(v);
+    });
+
+    it('works on an empty array', function () {
+        const v = List.find(v => v > 20, []);
+        assert.isUndefined(v);
+    });
+});
+
+
+describe('List#findIndex', function () {
+
+    it('works on a regular example', function () {
+        const v = List.findIndex(v => v < 7, [9, 8, 7, 6, 5, 4, 3, 2, 1]);
+        assert.equal(v, 3)
+    });
+
+    it('works on a regular example using item index', function () {
+        const v = List.findIndex((v, i) => i === 1, ['a', 'b', 'c']);
+        assert.equal(v, 1);
+    });
+
+    it('returns undefined if nothing found', function () {
+        const v = List.findIndex(v => v > 20, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        assert.equal(v, -1);
+    });
+
+    it('works on an empty array', function () {
+        const v = List.findIndex(v => v > 20, []);
+        assert.equal(v, -1);
+    });
+});
+
+
+describe('List#findRange', function () {
 
     it('works for list of integers', function () {
         const [min, max] = List.findRange((v1, v2) => v1 - v2, [4, 2, 15, 1]);
@@ -157,7 +204,7 @@ describe('List#findRange', () => {
 });
 
 
-describe('List#toDict', () => {
+describe('List#toDict', function () {
 
     it('transforms properly', function () {
         assert.deepEqual(List.toDict(['a', 'b', 'c']), {'0': 'a', '1': 'b', '2': 'c'});
@@ -168,7 +215,7 @@ describe('List#toDict', () => {
     });
 });
 
-describe('List#maxItem', () => {
+describe('List#maxItem', function () {
 
     it('searches properly', function () {
         const m = List.maxItem(v => v.length, ['hi', 'people', 'of', 'the', 'world']);
