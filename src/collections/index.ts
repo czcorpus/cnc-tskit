@@ -284,10 +284,17 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-    export function find<T>(pred:(v:T)=>boolean, data:Array<T>):T|undefined;
-    export function find<T>(pred:(v:T)=>boolean):(data:Array<T>)=>T|undefined;
-    export function find<T>(pred:(v:T)=>boolean, data?:Array<T>):any {
+    export function find<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):T|undefined;
+    export function find<T>(pred:(v:T, i:number)=>boolean):(data:Array<T>)=>T|undefined;
+    export function find<T>(pred:(v:T, i:number)=>boolean, data?:Array<T>):any {
         const fn = (data2:Array<T>):T|undefined => data2.find(pred);
+        return data ? fn(data) : fn;
+    }
+
+    export function findIndex<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):number;
+    export function findIndex<T>(pred:(v:T, i:number)=>boolean):(data:Array<T>)=>number;
+    export function findIndex<T>(pred:(v:T, i:number)=>boolean, data?:Array<T>):any {
+        const fn = (data2:Array<T>):number => data2.findIndex(pred);
         return data ? fn(data) : fn;
     }
 
