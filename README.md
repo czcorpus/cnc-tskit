@@ -60,6 +60,7 @@ const total = pipe(
   * every
   * filter
   * find
+  * findIndex
   * findRange
   * flatMap
   * forEach
