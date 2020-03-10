@@ -18,7 +18,9 @@
 
 import { Fn } from './common';
 
-export { Dict, List } from './collections/index';
+export { List } from './collections/list';
+
+export { Dict } from './collections/dict';
 
 export { Color } from './colors';
 
