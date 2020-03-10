@@ -63,6 +63,8 @@ const total = pipe(
   * findIndex
   * findRange
   * flatMap
+  * foldl
+  * foldr
   * forEach
   * get
   * groupBy
@@ -72,6 +74,7 @@ const total = pipe(
   * reduce
   * removeValue
   * repeat
+  * reverse
   * shift
   * slice
   * some
@@ -101,7 +104,7 @@ const total = pipe(
   * calcPercentRatios
   * roundToPos
   * wilsonConfInterval
-  
+
 ## Strings
-  
+
   * shortenText
