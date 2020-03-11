@@ -15,12 +15,16 @@ npm install cnc-tskit --save
 ```ts
 import { pipe, Dict, List } from 'cnc-tskit';
 
-const total = pipe(
-    mydata,
-    Dict.filter((v, k) => v.result > 50),
-    Dict.toEntries(),
-    List.reduce((acc, [,v]) => acc + v, 0)
-);
+const uniqItems = (...d:Array<string|Array<string>>):Array<string> => {
+    return pipe(
+        d,
+        List.filter(v => !!v),
+        List.flatMap(v => typeof v === 'string' ? [v] : v),
+        List.map<string, [string, boolean]>(v => [v, true]),
+        Dict.fromEntries(),
+        Dict.keys()
+    );
+};
 
 ```
 
