@@ -15,7 +15,7 @@ npm install cnc-tskit --save
 ```ts
 import { pipe, Dict, List } from 'cnc-tskit';
 
-const uniqItems = (...d:Array<string|Array<string>>):Array<string> => {
+function uniqItems(...d:Array<string|Array<string>>):Array<string> {
     return pipe(
         d,
         List.filter(v => !!v),
@@ -24,7 +24,7 @@ const uniqItems = (...d:Array<string|Array<string>>):Array<string> => {
         Dict.fromEntries(),
         Dict.keys()
     );
-};
+}
 
 ```
 
