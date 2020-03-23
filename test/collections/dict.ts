@@ -90,7 +90,8 @@ describe('Dict#fromEntries', function () {
     });
 
     it('works for an empty object', function () {
-        assert.deepEqual(Dict.fromEntries([]), {});
+        const k = Dict.fromEntries([]);
+        assert.deepEqual(k, {});
     });
 
 });
@@ -103,7 +104,8 @@ describe('Dict#toEntries', function () {
     });
 
     it('works for an empty object', function () {
-        assert.deepEqual(Dict.toEntries({}), []);
+        const k = Dict.toEntries({});
+        assert.deepEqual(k, []);
     });
 
 });
@@ -111,8 +113,10 @@ describe('Dict#toEntries', function () {
 describe('Dict#every', function () {
 
     it('works for a regular object', function () {
-        assert.equal(Dict.every((v, k) => typeof v === 'number' && typeof k === 'string', mkData()), true);
-        assert.equal(Dict.every((v, k) => v > 10, mkData()), false);
+        const ans = Dict.every((v, k) => typeof v === 'number' && typeof k === 'string', mkData());
+        assert.equal(ans, true);
+        const ans2 = Dict.every((v, k) => v > 10, mkData());
+        assert.equal(ans2, false);
     });
 
     it('works for an empty object', function () {
@@ -124,7 +128,8 @@ describe('Dict#every', function () {
 describe('Dict#map', function () {
 
     it('works for a regular object', function () {
-        assert.deepEqual(Dict.map((v, k) => 10*v, mkData()), {'a': 100, 'b': 200});
+        const ans = Dict.map((v, k) => 10*v, mkData());
+        assert.deepEqual(ans, {'a': 100, 'b': 200});
     });
 
     it('works for an empty object', function () {
@@ -200,7 +205,20 @@ describe('Dict#find', function () {
 describe('Dict#mapEntries', function () {
 
     it('works for a regular object', function () {
-        assert.deepEqual(Dict.mapEntries(([k, v]) => [k.toUpperCase(), 10*v], mkData()), [['A', 100], ['B', 200]]);
+        const ans = Dict.mapEntries(([k, v]) => [k.toUpperCase(), 10*v], mkData());
+        assert.deepEqual(ans, [['A', 100], ['B', 200]]);
+    });
+
+});
+
+describe('Dict#forEach', function () {
+
+    it('works for a regular object', function () {
+        let valueSum = 0;
+        let keySum = '';
+        Dict.forEach((v, k) => {valueSum += v; keySum += k;}, mkData());
+        assert.equal(valueSum, 30);
+        assert.equal(keySum, 'ab');
     });
 
 });
