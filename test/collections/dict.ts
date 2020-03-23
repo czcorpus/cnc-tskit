@@ -196,3 +196,11 @@ describe('Dict#find', function () {
     });
 
 });
+
+describe('Dict#mapEntries', function () {
+
+    it('works for a regular object', function () {
+        assert.deepEqual(Dict.mapEntries(([k, v]) => [k.toUpperCase(), 10*v], mkData()), [['A', 100], ['B', 200]]);
+    });
+
+});
