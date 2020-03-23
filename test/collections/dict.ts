@@ -21,6 +21,7 @@ import { Dict } from '../../src/collections/dict';
 import { assert } from 'chai';
 
 const mkData = ():{[k:string]:number} => ({a: 10, b: 20});
+const mkDataEntries = ():Array<[string, number]> => ([['a', 10], ['b', 20]]);
 
 describe('Dict#get', function () {
 
@@ -77,6 +78,32 @@ describe('Dict#size', function () {
 
     it('works for an empty object', function () {
         assert.equal(Dict.size({}), 0);
+    });
+
+});
+
+describe('Dict#fromEntries', function () {
+
+    it('works for a regular object', function () {
+        const k = Dict.fromEntries(mkDataEntries());
+        assert.deepEqual(k, mkData());
+    });
+
+    it('works for an empty object', function () {
+        assert.deepEqual(Dict.fromEntries([]), {});
+    });
+
+});
+
+describe('Dict#toEntries', function () {
+
+    it('works for a regular object', function () {
+        const k = Dict.toEntries(mkData());
+        assert.deepEqual(k, mkDataEntries());
+    });
+
+    it('works for an empty object', function () {
+        assert.deepEqual(Dict.toEntries({}), []);
     });
 
 });
