@@ -152,3 +152,29 @@ describe('Dict#filter', function () {
     });
 
 });
+
+describe('Dict#hasValue', function () {
+
+    it('works for a regular object', function () {
+        assert.equal(Dict.hasValue(10, mkData()), true);
+        assert.equal(Dict.hasValue(30, mkData()), false);
+    });
+
+    it('works for an empty object', function () {
+        assert.equal(Dict.hasValue('anything', {}), false);
+    });
+
+});
+
+describe('Dict#hasKey', function () {
+
+    it('works for a regular object', function () {
+        assert.equal(Dict.hasKey('a', mkData()), true);
+        assert.equal(Dict.hasKey('c', mkData()), false);
+    });
+
+    it('works for an empty object', function () {
+        assert.equal(Dict.hasKey('anything', {}), false);
+    });
+
+});
