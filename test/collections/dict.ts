@@ -222,3 +222,24 @@ describe('Dict#forEach', function () {
     });
 
 });
+
+describe('Dict#mergeDict', function () {
+
+    it('works for a regular and empty object', function () {
+        const ans = Dict.mergeDict((oldV, newV, k) => newV, {}, mkData());
+        assert.deepEqual(ans, mkData());
+        const ans2 = Dict.mergeDict((oldV, newV, k) => newV, mkData(), {});
+        assert.deepEqual(ans2, mkData());
+    });
+
+    it('works for a not overlaping regular objects', function () {
+        const ans = Dict.mergeDict((oldV, newV, k) => newV, {'a': 10}, {'b': 20} as {[key:string]:number});
+        assert.deepEqual(ans, mkData());
+    });
+
+    it('works for overlaping regular objects', function () {
+        const ans = Dict.mergeDict((oldV, newV, k) => newV, {'b': 200, 'c': 300}, mkData());
+        assert.deepEqual(ans, {'a': 10, 'b': 200, 'c': 300});
+    });
+
+});
