@@ -178,3 +178,21 @@ describe('Dict#hasKey', function () {
     });
 
 });
+
+describe('Dict#find', function () {
+
+    it('works for existing key/value', function () {
+        assert.deepEqual(Dict.find((v, k) => k === 'a', mkData()), ['a', 10]);
+        assert.deepEqual(Dict.find((v, k) => v === 20, mkData()), ['b', 20]);
+    });
+
+    it('works for non-existing key/value', function () {
+        assert.equal(Dict.find((v, k) => k === 'anything', mkData()), undefined);
+        assert.equal(Dict.find((v, k) => v === 0, mkData()), undefined);
+    });
+
+    it('works for an empty object', function () {
+        assert.equal(Dict.find((v, k) => k === 'anything', {}), undefined);
+    });
+
+});
