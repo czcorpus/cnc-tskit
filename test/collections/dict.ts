@@ -107,3 +107,48 @@ describe('Dict#toEntries', function () {
     });
 
 });
+
+describe('Dict#every', function () {
+
+    it('works for a regular object', function () {
+        assert.equal(Dict.every((v, k) => typeof v === 'number' && typeof k === 'string', mkData()), true);
+        assert.equal(Dict.every((v, k) => v > 10, mkData()), false);
+    });
+
+    it('works for an empty object', function () {
+        assert.equal(Dict.every((v, k) => false, {}), true);
+    });
+
+});
+
+describe('Dict#map', function () {
+
+    it('works for a regular object', function () {
+        assert.deepEqual(Dict.map((v, k) => 10*v, mkData()), {'a': 100, 'b': 200});
+    });
+
+    it('works for an empty object', function () {
+        assert.deepEqual(Dict.map((v, k) => 10*v, {}), {});
+    });
+
+});
+
+describe('Dict#filter', function () {
+
+    it('filters all out', function () {
+        assert.deepEqual(Dict.filter((v, k) => false, mkData()), {});
+    });
+
+    it('filters nothing out', function () {
+        assert.deepEqual(Dict.filter((v, k) => true, mkData()), mkData());
+    });
+
+    it('filters by value only', function () {
+        assert.deepEqual(Dict.filter((v, k) => v > 10, mkData()), {'b': 20});
+    });
+
+    it('filters by key only', function () {
+        assert.deepEqual(Dict.filter((v, k) => k < 'b', mkData()), {'a':10});
+    });
+
+});
