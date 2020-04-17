@@ -295,5 +295,131 @@ describe('List#reverse', function () {
         const m = List.reverse([1]);
         assert.deepEqual(m, [1]);
     });
+});
+
+describe('List#forEach', function () {
+
+    it('produces unchanged array and calls fn properly', function () {
+
+        const a:Array<string> = [];
+        const b:Array<number> = [];
+        const ans = List.forEach(
+            (v, i) => {
+                a.push(v);
+                b.push(i);
+            },
+            ['a', 'b', 'c', 'd']
+        );
+
+        assert.deepEqual(ans, ['a', 'b', 'c', 'd']);
+        assert.deepEqual(a, ['a', 'b', 'c', 'd']);
+        assert.deepEqual(b, [0, 1, 2, 3]);
+    });
+
+
+    it('works on an empty array', function () {
+
+        const a:Array<string> = [];
+        const b:Array<number> = [];
+        const ans = List.forEach(
+            (v, i) => {
+                a.push(v);
+                b.push(i);
+            },
+            []
+        );
+
+        assert.deepEqual(ans, []);
+        assert.deepEqual(a, []);
+        assert.deepEqual(b, []);
+    });
+
+});
+
+
+describe('List#zipByMappedKey', function () {
+
+    it('works on regular data', function () {
+        const testData:Array<Array<{name:string; lastName:string; age:number}>> = [
+            [
+                {name: 'Jane', lastName: 'Doe', age: 35},
+                {name: 'Tom', lastName: 'Jones', age: 50},
+                {name: 'Pablo', lastName: 'Doe', age: 35}
+            ],
+            [
+                {name: 'John', lastName: 'Doe', age: 37},
+                {name: 'Lemmy', lastName: 'Kilmister', age: 60},
+                {name: 'Sandy', lastName: 'Doe', age: 47}
+
+            ]
+        ];
+        const ans = List.zipByMappedKey(
+            v => v.lastName,
+            () => ({ident: '', lastName: ''}),
+            (dest, incom, datasetIdx) => {
+                if (dest.lastName !== incom.lastName) {
+                    return {
+                        ident: `${incom.name}_${incom.age}`,
+                        lastName: incom.lastName
+                    };
+                }
+                return dest;
+            },
+            testData
+        );
+        assert.deepEqual(ans, [
+            {ident: 'Jane_35', lastName: 'Doe'},
+            { ident: 'Tom_50', lastName: 'Jones' },
+            { ident: 'Lemmy_60', lastName: 'Kilmister' }
+        ])
+    });
+});
+
+
+describe('List#shift', function () {
+
+    it('works on regular data', function () {
+        const ans = List.shift(['a', 'b', 'c']);
+        assert.deepEqual(ans, ['b', 'c']);
+    });
+
+    it('works on an empty array', function () {
+        const ans = List.shift([]);
+        assert.deepEqual(ans, []);
+    });
+});
+
+
+describe('List#addUnique', function () {
+
+    it('works on regular primitive data', function () {
+        const data = [1, 2, 3];
+        const ans = List.addUnique(1, data);
+        assert.deepEqual(ans, [1, 2, 3]);
+    });
+
+
+    it('works on list of objects (strict comparison)', function () {
+        const data = [{a: 1}, {b: 2}];
+        const ans = List.addUnique({a: 1}, data);
+        assert.deepEqual(ans, [{a: 1}, {b: 2}, {a: 1}]);
+    });
+
+});
+
+
+describe('List#unique', function () {
+
+    it('works on regular data', function () {
+        const data = [{a: 1}, {a: 1}, {a: 2}];
+        const ans = List.unique(v => v.a, data);
+        assert.deepEqual(ans.sort((v1, v2) => v1.a - v2.a), [{a: 1}, {a: 2}]);
+    });
+
+    it('works on an empty array', function () {
+        const data:Array<{a:number}> = [];
+        const ans = List.unique(v => v.a, data);
+        assert.deepEqual(ans, []);
+    });
 
 });
