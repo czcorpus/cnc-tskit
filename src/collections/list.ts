@@ -274,6 +274,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Remove item from the beginning of an Array
+     */
     export function shift<T>(data:Array<T>):Array<T>;
     export function shift<T>():(data:Array<T>)=>Array<T>;
     export function shift<T>(data?:Array<T>):any {
@@ -284,7 +287,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-
+    /**
+     * Add item iff there is no strictly equal item already
+     * present.
+     */
     export function addUnique<T>(v:T, data:Array<T>):Array<T>;
     export function addUnique<T>(v:T):(data:Array<T>)=>Array<T>;
     export function addUnique<T>(v:T, data?:Array<T>):any {
@@ -294,6 +300,23 @@ export namespace List {
                 data2.push(v);
             }
             return data2;
+        };
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Make each item in an array unique based on provided keyFn.
+     * The function does not guarantee preserved order.
+     */
+    export function unique<T>(keyFn:(v:T)=>string|number|boolean, data:Array<T>):Array<T>;
+    export function unique<T>(keyFn:(v:T)=>string|number|boolean):(data:Array<T>)=>Array<T>;
+    export function unique<T>(keyFn:(v:T)=>string|number|boolean, data?:Array<T>):any {
+        const fn = (data2:Array<T>) => {
+            const tmp:{[key:string]:T} = {};
+            data2.forEach(v => {
+                tmp[keyFn(v) + ''] = v;
+            });
+            return Dict.values(tmp);
         };
         return data ? fn(data) : fn;
     }
