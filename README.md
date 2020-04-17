@@ -2,6 +2,8 @@
 
 A bunch of TypeScript functions and constants as used by miscellaneous web applications developed and maintained by the Czech National Corpus.
 
+The library does not use any external dependencies.
+
 ## How to use in a project
 
 1) Install:
