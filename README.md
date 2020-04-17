@@ -87,6 +87,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * sort
   * sortBy
   * toDict
+  * unique
   * zip
   * zipByMappedKey
 
