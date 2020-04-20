@@ -345,4 +345,22 @@ export namespace List {
         const fn = (data2:Array<T>):Array<T> => data2.concat(incoming);
         return data ? fn(data) : fn;
     }
+
+    export function head<T>(data:Array<T>):T;
+    export function head<T>():(data:Array<T>)=>T;
+    export function head<T>(data?:Array<T>):any {
+        if (data && data.length > 0) {
+            return data[0];
+        }
+        throw Error('Calling head on empty array');
+    }
+
+    export function tail<T>(data:Array<T>):Array<T>;
+    export function tail<T>():(data:Array<T>)=>Array<T>;
+    export function tail<T>(data?:Array<T>):any {
+        if (data && data.length > 0) {
+            return data.slice(1);
+        }
+        return [];
+    }
 }
