@@ -423,3 +423,32 @@ describe('List#unique', function () {
     });
 
 });
+
+
+describe('List#head', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.head(['a', 'b', 'c', 'd']);
+        assert.equal(m, 'a');
+    });
+
+    it('throws error on an empty array', function () {
+        assert.throws(() => List.head([]));
+    });
+
+});
+
+
+describe('List#tail', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.tail(['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['b', 'c', 'd']);
+    });
+
+    it('works properly on an empty array', function () {
+        const m = List.tail([]);
+        assert.deepEqual(m, []);
+    });
+
+});

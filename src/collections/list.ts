@@ -368,4 +368,28 @@ export namespace List {
         const fn = (data2:Array<T>):Array<T> => data2.concat(incoming);
         return data ? fn(data) : fn;
     }
+
+    export function head<T>(data:Array<T>):T;
+    export function head<T>():(data:Array<T>)=>T;
+    export function head<T>(data?:Array<T>):any {
+        const fn = (data2:Array<T>):T => {
+            if (data2 && data2.length > 0) {
+                return data2[0];
+            }
+            throw Error('Calling head on empty array');
+        }
+        return data ? fn(data) : fn;
+    }
+
+    export function tail<T>(data:Array<T>):Array<T>;
+    export function tail<T>():(data:Array<T>)=>Array<T>;
+    export function tail<T>(data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (data2 && data2.length > 0) {
+                return data2.slice(1);
+            }
+            return [];
+        }
+        return data ? fn(data) : fn;
+    }
 }
