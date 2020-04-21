@@ -349,18 +349,24 @@ export namespace List {
     export function head<T>(data:Array<T>):T;
     export function head<T>():(data:Array<T>)=>T;
     export function head<T>(data?:Array<T>):any {
-        if (data && data.length > 0) {
-            return data[0];
+        const fn = (data2:Array<T>):T => {
+            if (data2 && data2.length > 0) {
+                return data2[0];
+            }
+            throw Error('Calling head on empty array');
         }
-        throw Error('Calling head on empty array');
+        return data ? fn(data) : fn;
     }
 
     export function tail<T>(data:Array<T>):Array<T>;
     export function tail<T>():(data:Array<T>)=>Array<T>;
     export function tail<T>(data?:Array<T>):any {
-        if (data && data.length > 0) {
-            return data.slice(1);
+        const fn = (data2:Array<T>):Array<T> => {
+            if (data2 && data2.length > 0) {
+                return data2.slice(1);
+            }
+            return [];
         }
-        return [];
+        return data ? fn(data) : fn;
     }
 }
