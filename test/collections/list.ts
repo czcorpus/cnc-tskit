@@ -1,5 +1,6 @@
 /*
  * Copyright 2020 Tomas Machalek <tomas.machalek@gmail.com>
+ * Copyright 2020 Martin Zimandl <martin.zimandl@gmail.com>
  * Copyright 2020 Institute of the Czech National Corpus,
  *                Faculty of Arts, Charles University
  *
