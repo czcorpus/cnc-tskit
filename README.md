@@ -74,6 +74,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * forEach
   * get
   * groupBy
+  * head
   * map
   * maxItem
   * range
@@ -86,6 +87,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * some
   * sort
   * sortBy
+  * tail
   * toDict
   * unique
   * zip
