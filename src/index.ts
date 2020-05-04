@@ -67,3 +67,21 @@ export function composeLeft<T, U1, U2, U3, U4, U5, U6, U7, U8, U9>(op1:Fn<T, U1>
 export function composeLeft(...ops:Array<Fn<any, any>>):Fn<any, any> {
     return ops.reduce((prev, fn) => (data:any) => fn(prev(data)), v => v);
 }
+
+
+/**
+ * Create a formal tuple (= an array in JS). This can
+ * be used to reduce type writing
+ * (e.g. List.map(f => ['some string', 10] produces Array<string|number>
+ * which is not what we want here. Instead, we can write List.map(f => tuple('some string', 10)))
+ * @param data
+ */
+export function tuple<T1, T2, T3, T4, T5, T6>(...data:[T1, T2, T3, T4, T5, T6]):typeof data;
+export function tuple<T1, T2, T3, T4, T5>(...data:[T1, T2, T3, T4, T5]):typeof data;
+export function tuple<T1, T2, T3, T4>(...data:[T1, T2, T3, T4]):typeof data;
+export function tuple<T1, T2, T3>(...data:[T1, T2, T3]):typeof data;
+export function tuple<T1, T2>(...data:[T1, T2]):typeof data;
+export function tuple<T1>(...data:[T1]):typeof data;
+export function tuple(...data:Array<any>) {
+    return data;
+}
