@@ -28,6 +28,7 @@ export namespace Strings {
             }
             total += 1 + ans[i].length;
         }
-        return ans.join(' ').substr(0, maxLength) + suff;
+        const s = ans.join(' ').substr(0, maxLength);
+        return s.length <= maxLength ? s : s + suff;
     }
 }
