@@ -74,4 +74,9 @@ describe('Strings#shortenText', function () {
         const short = Strings.shortenText(text, 6, ' etc.');
         assert.equal(short, 'lorem etc.');
     });
+
+    it('suffix not used in case not necessary', function () {
+        const short = Strings.shortenText('the people', 10, '_');
+        assert.equal(short, 'the people');
+    })
 });
