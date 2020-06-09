@@ -215,9 +215,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-    export function filter<T>(pred:(v:T)=>boolean, data:Array<T>):Array<T>;
-    export function filter<T>(pred:(v:T)=>boolean):(data:Array<T>)=>Array<T>;
-    export function filter<T>(pred:(v:T)=>boolean, data?:Array<T>):any {
+    export function filter<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):Array<T>;
+    export function filter<T>(pred:(v:T, i:number)=>boolean):(data:Array<T>)=>Array<T>;
+    export function filter<T>(pred:(v:T, i:number)=>boolean, data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<T> => data2.filter(pred);
         return data ? fn(data) : fn;
     }
@@ -378,6 +378,18 @@ export namespace List {
                 return data2[0];
             }
             throw Error('Calling head on empty array');
+        }
+        return data ? fn(data) : fn;
+    }
+
+    export function last<T>(data:Array<T>):T;
+    export function last<T>():(data:Array<T>)=>T;
+    export function last<T>(data?:Array<T>):any {
+        const fn = (data2:Array<T>):T => {
+            if (data2 && data2.length > 0) {
+                return data2[data2.length - 1];
+            }
+            throw Error('Calling last on empty array');
         }
         return data ? fn(data) : fn;
     }
