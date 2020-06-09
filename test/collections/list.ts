@@ -128,6 +128,22 @@ describe('List#get', function () {
     });
 });
 
+
+describe('List#filter', function () {
+
+    it('works with a regular predicate', function () {
+        const ans = List.filter(v => v.v % 2 == 0, [{v: 0}, {v: 1}, {v: 2}, {v: 3}, {v: 4}, {v: 5}, {v: 6}]);
+        assert.deepEqual(ans, [{v: 0}, {v: 2}, {v: 4}, {v: 6}]);
+    });
+
+    it('works when using item index in predicate', function () {
+        const ans = List.filter((_, i) => i % 2 == 0, ['a', 'b', 'c', 'd', 'e', 'f', 'g']);
+        assert.deepEqual(ans, ['a', 'c', 'e', 'g']);
+    });
+
+});
+
+
 describe('List#find', function () {
 
     it('works on a regular example', function () {
@@ -438,6 +454,22 @@ describe('List#head', function () {
     });
 
 });
+
+
+describe('List#first', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.last(['a', 'b', 'c', 'd']);
+        assert.equal(m, 'd');
+    });
+
+    it('throws error on an empty array', function () {
+        assert.throws(() => List.last([]));
+    });
+
+});
+
+
 
 
 describe('List#tail', function () {
