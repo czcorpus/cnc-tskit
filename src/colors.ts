@@ -143,4 +143,36 @@ export namespace Color {
         };
         return hsl ? fn(hsl) : fn;
     }
+
+
+    /**
+     * Convert RGB value to HSL (0..1, 0..1, 0..1)
+     */
+    export function rgb2Hsl(rgb:RGBA):[number, number, number];
+    export function rgb2Hsl():(rgb:RGBA)=>[number, number, number];
+    export function rgb2Hsl(rgb?:RGBA):any {
+        const fn = (rgb2:RGBA) => {
+            const [nr, ng, nb] = rgb2.map(v => v / 255);
+            const min = Math.min(nr, ng, nb);
+            const max = Math.max(nr, ng, nb);
+            const delta = max - min;
+            const lum = (max + min) / 2;
+
+            if (min === max) {
+                return [0, 0, (max + min) / 2];
+
+            } else {
+                const sat = delta / (1 - Math.abs(2 * lum - 1));
+                const calc = [
+                    () => (ng - nb) / delta + (ng < nb ? 6 : 0),
+                    () => 2.0 + (nb - nr) / delta,
+                    () => 4.0 + (nr - ng) / delta
+                ];
+                const srch = rgb2.reduce((acc, v, i) => v > acc.max ? {max: v, i: i} : acc, {max: 0, i: 0});
+                const hue = calc[srch.i]() * 60 / 360;
+                return [hue, sat, lum];
+            }
+        };
+        return rgb ? fn(rgb) : fn;
+    }
 }
