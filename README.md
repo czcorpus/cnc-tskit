@@ -38,8 +38,12 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 ## Color
 
   * RGBA
-  * textColorFromBg
+  * color2str
+  * hsl2Rgb
   * importColor
+  * luminosity
+  * rgb2Hsl
+  * textColorFromBg
 
 ## Dict
 

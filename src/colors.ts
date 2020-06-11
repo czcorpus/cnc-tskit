@@ -93,4 +93,86 @@ export namespace Color {
         };
         return color ? fn(color) : fn;
     }
+
+    /**
+     * Convert 0..1, 0..1, 0..1 encoded HSL color to RGB.
+     * The algorithm is taken from
+     * https://www.w3.org/TR/css-color-3/#hsl-color
+     */
+    export function hsl2Rgb(hsl:[number, number, number]):RGBA;
+    export function hsl2Rgb():(hsl:[number, number, number])=>RGBA;
+    export function hsl2Rgb(hsl?:[number, number, number]):any {
+
+        const hue2rgb = (m1:number, m2:number, h:number):number => {
+            if (h < 0) {
+                h += 1;
+
+            } else if (h > 1) {
+                h -= 1;
+            }
+            if (6 * h < 1) {
+                return m1 + (m2 - m1) * 6 * h;
+            }
+            if (2 * h < 1) {
+                return m2;
+            }
+            if (3 * h < 2) {
+                return m1 + (m2 - m1) * (2/3 - h) * 6;
+            }
+            return m1;
+        };
+
+        const norm = (v:[number, number, number]):RGBA => {
+            return [
+                Math.round(v[0] * 255),
+                Math.round(v[1] * 255),
+                Math.round(v[2] * 255),
+                1
+            ];
+        }
+
+        const fn = (hsl2:[number, number, number]) => {
+            const [hue, sat, lgt] = hsl2;
+            const m2 = lgt < 0.5 ? lgt * (1 + sat) : lgt + sat - lgt * sat;
+            const m1 = 2 * lgt - m2;
+            return norm([
+                hue2rgb(m1, m2, hue + 1/3),
+                hue2rgb(m1, m2, hue),
+                hue2rgb(m1, m2, hue - 1/3)
+            ]);
+        };
+        return hsl ? fn(hsl) : fn;
+    }
+
+
+    /**
+     * Convert RGB value to HSL (0..1, 0..1, 0..1)
+     */
+    export function rgb2Hsl(rgb:RGBA):[number, number, number];
+    export function rgb2Hsl():(rgb:RGBA)=>[number, number, number];
+    export function rgb2Hsl(rgb?:RGBA):any {
+        const fn = (rgb2:RGBA) => {
+            const [nr, ng, nb] = rgb2.map(v => v / 255);
+            const min = Math.min(nr, ng, nb);
+            const max = Math.max(nr, ng, nb);
+            const delta = max - min;
+            const lum = (max + min) / 2;
+
+            if (min === max) {
+                return [0, 0, (max + min) / 2];
+
+            } else {
+                const sat = delta / (1 - Math.abs(2 * lum - 1));
+                const calc = [
+                    () => (ng - nb) / delta + (ng < nb ? 6 : 0),
+                    () => 2.0 + (nb - nr) / delta,
+                    () => 4.0 + (nr - ng) / delta
+                ];
+                const srch = rgb2.reduce((acc, v, i) => v > acc.max ? {max: v, i: i} : acc, {max: 0, i: 0});
+                const hue = calc[srch.i]() * 60 / 360;
+                return [hue, sat, lum];
+            }
+        };
+        return rgb ? fn(rgb) : fn;
+    }
 }
