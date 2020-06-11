@@ -15,14 +15,14 @@ npm install cnc-tskit --save
 2) Use in your code:
 
 ```ts
-import { pipe, Dict, List } from 'cnc-tskit';
+import { pipe, tuple, Dict, List } from 'cnc-tskit';
 
 function uniqItems(...d:Array<string|Array<string>>):Array<string> {
     return pipe(
         d,
         List.filter(v => !!v),
         List.flatMap(v => typeof v === 'string' ? [v] : v),
-        List.map<string, [string, boolean]>(v => [v, true]),
+        List.map(v => tuple(v, true)),
         Dict.fromEntries(),
         Dict.keys()
     );
