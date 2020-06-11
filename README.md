@@ -32,8 +32,9 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 
 ## main scope
 
-* pipe
 * composeLeft
+* pipe
+* tuple
 
 ## Color
 
