@@ -33,6 +33,59 @@ describe('Color#luminosity', function () {
 
 });
 
+describe('Color#hsl2Rgb', function () {
+
+  it('converts a sample color with known result', function () {
+    const [r, g, b] = Color.hsl2Rgb([0.5, 0.5, 0.5]);
+    console.log(r, g, b)
+    assert.equal(r, 64);
+    assert.equal(g, 191);
+    assert.equal(b, 191);
+  });
+
+  it('converts another sample color with known result', function () {
+    const [r, g, b] = Color.hsl2Rgb([0.036, 0.23, 0.23]);
+    console.log(r, g, b)
+    assert.equal(r, 72);
+    assert.equal(g, 51);
+    assert.equal(b, 45);
+  });
+
+  it('converts white', function () {
+    const [r, g, b] = Color.hsl2Rgb([1, 1, 1]);
+    console.log(r, g, b)
+    assert.equal(r, 255);
+    assert.equal(g, 255);
+    assert.equal(b, 255);
+  });
+
+  it('converts black', function () {
+    const [r, g, b] = Color.hsl2Rgb([0, 0, 0]);
+    console.log(r, g, b)
+    assert.equal(r, 0);
+    assert.equal(g, 0);
+    assert.equal(b, 0);
+  });
+
+
+  it('converts pure red', function () {
+    const [r, g, b] = Color.hsl2Rgb([0, 1, 0.5]);
+    console.log(r, g, b)
+    assert.equal(r, 255);
+    assert.equal(g, 0);
+    assert.equal(b, 0);
+  });
+
+  it('converts pure green', function () {
+    const [r, g, b] = Color.hsl2Rgb([0.3333, 1, 0.5]);
+    console.log(r, g, b)
+    assert.equal(r, 0);
+    assert.equal(g, 255);
+    assert.equal(b, 0);
+  });
+
+});
+
 describe('Color pipeability', function () {
 
   it('allows piping color operations together', function () {
