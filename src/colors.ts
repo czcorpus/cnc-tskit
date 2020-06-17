@@ -74,7 +74,7 @@ export namespace Color {
                 ];
 
             } else if (color2.toLowerCase().indexOf('rgb') === 0) {
-                const srch = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d\.]+)?\s*\)/i.exec(color2);
+                const srch = /rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d\.]+)?\s*\)/i.exec(color2);
                 if (srch) {
                     return [
                         parseInt(srch[1]),
