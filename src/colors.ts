@@ -74,13 +74,13 @@ export namespace Color {
                 ];
 
             } else if (color2.toLowerCase().indexOf('rgb') === 0) {
-                const srch = /rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*[\d\.]+)?\s*\)/i.exec(color2);
+                const srch = /rgb(a)?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*(1|1.0|(0?\.)?\d+)\s*)?\)/i.exec(color2);
                 if (srch) {
                     return [
-                        parseInt(srch[1]),
                         parseInt(srch[2]),
                         parseInt(srch[3]),
-                        parseFloat(opacity.toFixed(1))
+                        parseInt(srch[4]),
+                        parseFloat(srch[1] ? srch[6] : opacity.toFixed(1))
                     ];
 
                 } else {
