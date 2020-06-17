@@ -47,8 +47,12 @@ describe('Color#importColor', function () {
     assert.deepEqual(Color.importColor(1, 'rgb (1, 2, 3)'), [1, 2, 3, 1]);
   });
 
-  it('imports RGB quadruplet format, opacity ignored', function () {
+  it('imports (incorrect) RGB quadruplet format, opacity ignored', function () {
     assert.deepEqual(Color.importColor(0.3, 'rgb (1, 2, 3, 0.5)'), [1, 2, 3, 0.3]);
+  });
+
+  it('imports RGBA quadruplet format, opacity applied', function () {
+    assert.deepEqual(Color.importColor(0.3, 'rgba(1, 2, 3, 0.5)'), [1, 2, 3, 0.5]);
   });
 
 });
