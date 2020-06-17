@@ -33,6 +33,26 @@ describe('Color#luminosity', function () {
 
 });
 
+describe('Color#importColor', function () {
+
+  it('imports hex color with hash prefix', function () {
+    assert.deepEqual(Color.importColor(1, '#abcdef'), [171, 205, 239, 1]);
+  });
+
+  it('imports RGB triplet format', function () {
+    assert.deepEqual(Color.importColor(1, 'RGB (171, 205, 239)'), [171, 205, 239, 1]);
+  });
+
+  it('imports RGB triplet format (lowercase)', function () {
+    assert.deepEqual(Color.importColor(1, 'rgb (1, 2, 3)'), [1, 2, 3, 1]);
+  });
+
+  it('imports RGB quadruplet format, opacity ignored', function () {
+    assert.deepEqual(Color.importColor(0.3, 'rgb (1, 2, 3, 0.5)'), [1, 2, 3, 0.3]);
+  });
+
+});
+
 describe('Color#hsl2Rgb', function () {
 
   it('converts a sample color with known result', function () {
