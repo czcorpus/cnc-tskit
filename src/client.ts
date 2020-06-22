@@ -19,7 +19,7 @@
 declare var DocumentTouch;
 
 export namespace Client {
-    export function isTouchDevice():boolean {
+    export function isMobileTouchDevice():boolean {
       return window.matchMedia('screen and (max-width: 480px)').matches
                   && (('ontouchstart' in window) || window['DocumentTouch'] && document instanceof 
           DocumentTouch)
