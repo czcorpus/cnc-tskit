@@ -36,6 +36,10 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 * pipe
 * tuple
 
+## Client
+
+  * isMobileTouchDevice
+
 ## Color
 
   * RGBA
