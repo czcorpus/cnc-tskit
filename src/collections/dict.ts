@@ -204,4 +204,18 @@ export namespace Dict {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Remove all the properties, keep the reference.
+     */
+    export function clear<V, K extends string>(data:Obj<V, K>):Obj<V, K>;
+    export function clear<V, K extends string>(data?:Obj<V, K>):any {
+        const fn = (data2:Obj<V, K>) => {
+            for (let p in data2) {
+                delete data2[p];
+            }
+            return data2;
+        };
+        return data ? fn(data) : fn;
+    }
+
 }
