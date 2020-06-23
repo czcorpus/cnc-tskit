@@ -244,3 +244,28 @@ describe('Dict#mergeDict', function () {
     });
 
 });
+
+describe('Dict#clear', function () {
+
+
+    it('works for a regular non-empty object', function () {
+        const data = {
+            foo: 1,
+            bar: 'test',
+            baz: {x: 10}
+        };
+        const ans = Dict.clear(data);
+
+        assert.isTrue(data === ans);
+        assert.equal(Object.keys(ans).length, 0);
+    });
+
+    it('works for an empty object', function () {
+        const data = {};
+        const ans = Dict.clear(data);
+
+        assert.isTrue(data === ans);
+        assert.equal(Object.keys(ans).length, 0);
+    });
+
+});
