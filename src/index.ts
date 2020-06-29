@@ -36,6 +36,8 @@ export { Strings } from './string';
 
 export { Client } from './client';
 
+export { Time } from './time';
+
 /**
  * Apply one or more functions (from left to right) to a provided argument.
  */
