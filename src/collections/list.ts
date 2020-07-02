@@ -200,7 +200,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-
+    /**
+     * Sorts the original array
+     */
     export function sortBy<T>(map:(v:T) => number, data:Array<T>):Array<T>;
     export function sortBy<T>(map:(v:T) => number):(data:Array<T>)=>Array<T>;
     export function sortBy<T>(map:(v:T) => number, data?:Array<T>):any {
@@ -208,10 +210,20 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-    export function sort<T>(cmp:(v1:T, v2:T) => number, data:Array<T>):Array<T>;
-    export function sort<T>(cmp:(v1:T, v2:T) => number):(data:Array<T>)=>Array<T>;
-    export function sort<T>(cmp:(v1:T, v2:T) => number, data?:Array<T>):any {
-        const fn = (data2:Array<T>):Array<T> => data2.sort(cmp);
+    /**
+     * Sorts a copy of provided array
+     */
+    export function sortedBy<T>(map:(v:T) => number, data:Array<T>):Array<T>;
+    export function sortedBy<T>(map:(v:T) => number):(data:Array<T>)=>Array<T>;
+    export function sortedBy<T>(map:(v:T) => number, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => [...data2].sort((v1, v2) => map(v1) - map(v2));
+        return data ? fn(data) : fn;
+    }
+
+    export function sorted<T>(cmp:(v1:T, v2:T) => number, data:Array<T>):Array<T>;
+    export function sorted<T>(cmp:(v1:T, v2:T) => number):(data:Array<T>)=>Array<T>;
+    export function sorted<T>(cmp:(v1:T, v2:T) => number, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => [...data2].sort(cmp);
         return data ? fn(data) : fn;
     }
 

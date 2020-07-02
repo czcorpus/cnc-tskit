@@ -470,6 +470,28 @@ describe('List#first', function () {
 });
 
 
+describe('List#sortBy', function () {
+
+    it('sorts an array in-place', function () {
+        const data = [{v: 10}, {v: 3}, {v: 5}];
+        const ans = List.sortBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 3}, {v: 5}, {v: 10}]);
+        assert.strictEqual(ans, data);
+    });
+
+});
+
+
+describe('List#sortedBy', function () {
+
+    it('sorts an array on a shallow copy', function () {
+        const data = [{v: 10}, {v: 3}, {v: 5}];
+        const ans = List.sortedBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 3}, {v: 5}, {v: 10}]);
+        assert.notStrictEqual(ans, data);
+    });
+
+});
 
 
 describe('List#tail', function () {

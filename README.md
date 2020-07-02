@@ -97,6 +97,8 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * some
   * sort
   * sortBy
+  * sorted
+  * sortedBy
   * tail
   * toDict
   * unique
