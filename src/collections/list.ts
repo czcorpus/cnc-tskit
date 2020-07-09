@@ -413,7 +413,7 @@ export namespace List {
             if (data2 && data2.length > 0) {
                 return data2.slice(1);
             }
-            return [];
+            throw Error('Calling tail on empty array');
         };
         return data ? fn(data) : fn;
     }
