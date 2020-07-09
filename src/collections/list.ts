@@ -390,7 +390,7 @@ export namespace List {
                 return data2[0];
             }
             throw Error('Calling head on empty array');
-        }
+        };
         return data ? fn(data) : fn;
     }
 
@@ -402,7 +402,7 @@ export namespace List {
                 return data2[data2.length - 1];
             }
             throw Error('Calling last on empty array');
-        }
+        };
         return data ? fn(data) : fn;
     }
 
@@ -414,6 +414,18 @@ export namespace List {
                 return data2.slice(1);
             }
             return [];
+        };
+        return data ? fn(data) : fn;
+    }
+
+    export function init<T>(data:Array<T>):Array<T>;
+    export function init<T>():(data:Array<T>)=>Array<T>;
+    export function init<T>(data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (data2 && data2.length > 0) {
+                return data2.slice(0, -1);
+            }
+            throw Error('Calling init on empty array');
         }
         return data ? fn(data) : fn;
     }

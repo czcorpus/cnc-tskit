@@ -505,5 +505,22 @@ describe('List#tail', function () {
         const m = List.tail([]);
         assert.deepEqual(m, []);
     });
+});
 
+
+describe('List#init', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.init(['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['a', 'b', 'c']);
+    });
+
+    it('works properly on an array of size 1', function () {
+        const m = List.init(['a']);
+        assert.deepEqual(m, []);
+    })
+
+    it('works properly on an empty array', function () {
+        assert.throws(() => List.last([]));
+    });
 });
