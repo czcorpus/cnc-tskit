@@ -463,7 +463,7 @@ describe('List#first', function () {
         assert.equal(m, 'd');
     });
 
-    it('throws error on an empty array', function () {
+    it('throws an error when applied on an empty array', function () {
         assert.throws(() => List.last([]));
     });
 
@@ -506,7 +506,7 @@ describe('List#tail', function () {
         assert.deepEqual(m, []);
     });
 
-    it('works properly on an empty array', function () {
+    it('throws an error when applied on an empty array', function () {
         assert.throws(() => List.tail([]));
     });
 });
@@ -524,7 +524,32 @@ describe('List#init', function () {
         assert.deepEqual(m, []);
     })
 
-    it('works properly on an empty array', function () {
+    it('throws an error when applied on an empty array', function () {
         assert.throws(() => List.init([]));
     });
 });
+
+describe('List#removeAt', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.removeAt(2, ['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['a', 'b', 'd']);
+    });
+
+    it('works properly on regular data using negative idx', function () {
+        const m = List.removeAt(-3, ['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['a', 'c', 'd']);
+    });
+
+    it('throws an error when idx is out of bounds (+)', function () {
+        assert.throw(() => List.removeAt(4, ['a', 'b', 'c', 'd']));
+    });
+
+    it('throws an error when idx is out of bounds (+)', function () {
+        assert.throw(() => List.removeAt(-5, ['a', 'b', 'c', 'd']));
+    });
+
+    it('works properly on an empty array', function () {
+        assert.throw(() => List.removeAt(0, []));
+    });
+})

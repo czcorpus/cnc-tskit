@@ -334,6 +334,11 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Remove a value for an array in case it is strictly
+     * equal to the provided one.
+     * The function mutates the original array.
+     */
     export function removeValue<T>(v:T, data:Array<T>):Array<T>;
     export function removeValue<T>(v:T):(data:Array<T>)=>Array<T>;
     export function removeValue<T>(v:T, data?:Array<T>):any {
@@ -406,6 +411,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return all the items except the first one.
+     * If applied on an empty array an error is thrown.
+     */
     export function tail<T>(data:Array<T>):Array<T>;
     export function tail<T>():(data:Array<T>)=>Array<T>;
     export function tail<T>(data?:Array<T>):any {
@@ -418,12 +427,41 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return all the items except the last one.
+     * If applied on an empty array an error is thrown.
+     */
     export function init<T>(data:Array<T>):Array<T>;
     export function init<T>():(data:Array<T>)=>Array<T>;
     export function init<T>(data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<T> => {
             if (data2 && data2.length > 0) {
                 return data2.slice(0, -1);
+            }
+            throw Error('Calling init on empty array');
+        }
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Remove item at specified position. Negative numbers
+     * can be used to address from the end of the array.
+     * If idx is out of the array bounds (either positive
+     * or negative) an error is thrown.
+     * The function mutates the original array.
+     */
+    export function removeAt<T>(idx:number, data:Array<T>):Array<T>;
+    export function removeAt<T>(idx:number):(data:Array<T>)=>Array<T>;
+    export function removeAt<T>(idx:number, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (data2) {
+                if (idx < data2.length && idx >= -data2.length) {
+                    data2.splice(idx, 1);
+                    return data2;
+
+                } else {
+                    throw Error(`Index ${idx} is out of bounds`);
+                }
             }
             throw Error('Calling init on empty array');
         }

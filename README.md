@@ -90,6 +90,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * maxItem
   * range
   * reduce
+  * removeAt
   * removeValue
   * repeat
   * reverse
