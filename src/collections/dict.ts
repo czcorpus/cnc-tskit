@@ -35,6 +35,9 @@ export namespace Dict {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Create a dictionary from provided list of [key, value] pairs.
+     */
     export function fromEntries<V, K extends string>(items:Array<[K, V]>):Obj<V, K>;
     export function fromEntries<V, K extends string>():(items:Array<[K, V]>)=>Obj<V, K>;
     export function fromEntries<V, K extends string>(items?:Array<[K, V]>):any {
@@ -48,6 +51,9 @@ export namespace Dict {
         return items ? fn(items) : fn;
     }
 
+    /**
+     * Create a list of [key, value] pairs from provided dictionary
+     */
     export function toEntries<V, K extends string>(data:Obj<V, K>):Array<[K, V]>;
     export function toEntries<V, K extends string>():(data:Obj<V, K>)=>Array<[K, V]>;
     export function toEntries<V, K extends string>(data?:Obj<V, K>):any {

@@ -98,8 +98,10 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * slice
   * some
   * sort
+  * sortAlphaBy
   * sortBy
   * sorted
+  * sortedAlphaBy
   * sortedBy
   * tail
   * toDict
