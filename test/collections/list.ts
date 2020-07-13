@@ -493,6 +493,29 @@ describe('List#sortedBy', function () {
 
 });
 
+describe('List#sortAlphaBy', function () {
+
+    it('sorts an array in place', function () {
+        const data = [{v: 'zool'}, {v: 'fancy'}, {v: 'a'}];
+        const ans = List.sortAlphaBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 'a'}, {v: 'fancy'}, {v: 'zool'}]);
+        assert.strictEqual(ans, data);
+    });
+
+});
+
+
+describe('List#sortedAlphaBy', function () {
+
+    it('sorts an array on a shallow copy', function () {
+        const data = [{v: 'zool'}, {v: 'fancy'}, {v: 'a'}];
+        const ans = List.sortedAlphaBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 'a'}, {v: 'fancy'}, {v: 'zool'}]);
+        assert.notStrictEqual(ans, data);
+    });
+
+});
+
 
 describe('List#tail', function () {
 
