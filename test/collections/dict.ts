@@ -81,6 +81,36 @@ describe('Dict#size', function () {
         assert.equal(Dict.size({}), 0);
     });
 
+    it('does not include prototype\'s props', function () {
+        function Foo() {
+            this.a = 1;
+            this.b = 'B';
+        }
+        Foo.prototype.c = 'C';
+        const t = new Foo();
+        assert.equal(Dict.size(t), 2);
+    });
+
+});
+
+describe('Dict#empty', function () {
+
+    it('works for a regular object', function () {
+        assert.isFalse(Dict.empty(mkData()));
+    });
+
+    it('works for an empty object', function () {
+        assert.isTrue(Dict.empty({}));
+    });
+
+    it('ignores prototype\'s props', function () {
+        function Foo() {
+        }
+        Foo.prototype.c = 'C';
+        const t = new Foo();
+        assert.isTrue(Dict.empty(t));
+    });
+
 });
 
 describe('Dict#fromEntries', function () {

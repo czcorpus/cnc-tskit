@@ -32,6 +32,25 @@ import { Dict } from './dict';
 export namespace List {
 
     /**
+     * Return length of a provided array
+     */
+    export function size<T>(data:Array<T>):number;
+    export function size<T>():(data:Array<T>)=>number;
+    export function size<T>(data?:Array<T>):any {
+        return data ? data.length : (data2:Array<T>)=>data2.length;
+    }
+
+    /**
+     * Return true if length of the provided array is 0
+     * else return false.
+     */
+    export function empty<T>(data:Array<T>):boolean;
+    export function empty<T>():(data:Array<T>)=>number;
+    export function empty<T>(data?:Array<T>):any {
+        return data ? data.length === 0 : (data2:Array<T>)=>data2.length === 0;
+    }
+
+    /**
      * Create an array of size 'size' filled in by values created
      * by factory function fn. The parameter idx passed to fn
      * describes order of the item (0-based).

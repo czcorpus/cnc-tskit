@@ -52,6 +52,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 
 ## Dict
 
+  * empty
   * every
   * filter
   * find
@@ -72,6 +73,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 
   * addUnique
   * concat
+  * empty
   * every
   * filter
   * find
@@ -95,6 +97,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * repeat
   * reverse
   * shift
+  * size
   * slice
   * some
   * sort

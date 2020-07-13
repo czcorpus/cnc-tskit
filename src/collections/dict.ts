@@ -28,10 +28,23 @@ export namespace Dict {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return number of keys/properties of a provided object
+     */
     export function size<V, K extends string>(data:Obj<V, K>):number;
     export function size<V, K extends string>():(data:Obj<V, K>)=>number;
     export function size<V, K extends string>(data?:Obj<V, K>):any {
         const fn = (data2:Obj<V, K>) => Object.keys(data2).length;
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Return true if number of object's keys/properties is zero.
+     */
+    export function empty<V, K extends string>(data:Obj<V, K>):number;
+    export function empty<V, K extends string>():(data:Obj<V, K>)=>number;
+    export function empty<V, K extends string>(data?:Obj<V, K>):any {
+        const fn = (data2:Obj<V, K>) => Object.keys(data2).length === 0;
         return data ? fn(data) : fn;
     }
 
