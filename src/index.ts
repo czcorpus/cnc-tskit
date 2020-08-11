@@ -36,6 +36,8 @@ export { Strings } from './string';
 
 export { Client } from './client';
 
+export { URL } from './url';
+
 /**
  * Apply one or more functions (from left to right) to a provided argument.
  */
