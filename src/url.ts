@@ -18,4 +18,15 @@
 
 export namespace URL {
 
+    export function join(...path:string[]):string {
+        return path.slice(1).reduce(
+            (acc, curr) => {
+                const part1 = acc.endsWith('/') ? acc.slice(0, acc.length - 1) : acc;
+                const part2 = curr.startsWith('/') ? curr.slice(1) : curr;
+                return `${part1}/${part2}`;
+            },
+            path[0]
+        );
+    }
+
 }
