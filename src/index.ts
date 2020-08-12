@@ -38,6 +38,8 @@ export { Client } from './client';
 
 export { Time } from './time';
 
+export { URL } from './url';
+
 /**
  * Apply one or more functions (from left to right) to a provided argument.
  */
