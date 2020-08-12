@@ -36,6 +36,8 @@ export { Strings } from './string';
 
 export { Client } from './client';
 
+export { Time } from './time';
+
 export { URL } from './url';
 
 /**

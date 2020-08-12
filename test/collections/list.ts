@@ -463,13 +463,58 @@ describe('List#first', function () {
         assert.equal(m, 'd');
     });
 
-    it('throws error on an empty array', function () {
+    it('throws an error when applied on an empty array', function () {
         assert.throws(() => List.last([]));
     });
 
 });
 
 
+describe('List#sortBy', function () {
+
+    it('sorts an array in-place', function () {
+        const data = [{v: 10}, {v: 3}, {v: 5}];
+        const ans = List.sortBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 3}, {v: 5}, {v: 10}]);
+        assert.strictEqual(ans, data);
+    });
+
+});
+
+
+describe('List#sortedBy', function () {
+
+    it('sorts an array on a shallow copy', function () {
+        const data = [{v: 10}, {v: 3}, {v: 5}];
+        const ans = List.sortedBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 3}, {v: 5}, {v: 10}]);
+        assert.notStrictEqual(ans, data);
+    });
+
+});
+
+describe('List#sortAlphaBy', function () {
+
+    it('sorts an array in place', function () {
+        const data = [{v: 'zool'}, {v: 'fancy'}, {v: 'a'}];
+        const ans = List.sortAlphaBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 'a'}, {v: 'fancy'}, {v: 'zool'}]);
+        assert.strictEqual(ans, data);
+    });
+
+});
+
+
+describe('List#sortedAlphaBy', function () {
+
+    it('sorts an array on a shallow copy', function () {
+        const data = [{v: 'zool'}, {v: 'fancy'}, {v: 'a'}];
+        const ans = List.sortedAlphaBy(v =>  v.v, data);
+        assert.deepEqual(ans, [{v: 'a'}, {v: 'fancy'}, {v: 'zool'}]);
+        assert.notStrictEqual(ans, data);
+    });
+
+});
 
 
 describe('List#tail', function () {
@@ -479,9 +524,55 @@ describe('List#tail', function () {
         assert.deepEqual(m, ['b', 'c', 'd']);
     });
 
-    it('works properly on an empty array', function () {
-        const m = List.tail([]);
+    it('works properly on an array of size 1', function () {
+        const m = List.tail(['a']);
         assert.deepEqual(m, []);
     });
 
+    it('throws an error when applied on an empty array', function () {
+        assert.throws(() => List.tail([]));
+    });
 });
+
+
+describe('List#init', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.init(['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['a', 'b', 'c']);
+    });
+
+    it('works properly on an array of size 1', function () {
+        const m = List.init(['a']);
+        assert.deepEqual(m, []);
+    })
+
+    it('throws an error when applied on an empty array', function () {
+        assert.throws(() => List.init([]));
+    });
+});
+
+describe('List#removeAt', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.removeAt(2, ['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['a', 'b', 'd']);
+    });
+
+    it('works properly on regular data using negative idx', function () {
+        const m = List.removeAt(-3, ['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['a', 'c', 'd']);
+    });
+
+    it('throws an error when idx is out of bounds (+)', function () {
+        assert.throw(() => List.removeAt(4, ['a', 'b', 'c', 'd']));
+    });
+
+    it('throws an error when idx is out of bounds (+)', function () {
+        assert.throw(() => List.removeAt(-5, ['a', 'b', 'c', 'd']));
+    });
+
+    it('works properly on an empty array', function () {
+        assert.throw(() => List.removeAt(0, []));
+    });
+})

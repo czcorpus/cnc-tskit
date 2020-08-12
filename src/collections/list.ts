@@ -32,6 +32,25 @@ import { Dict } from './dict';
 export namespace List {
 
     /**
+     * Return length of a provided array
+     */
+    export function size<T>(data:Array<T>):number;
+    export function size<T>():(data:Array<T>)=>number;
+    export function size<T>(data?:Array<T>):any {
+        return data ? data.length : (data2:Array<T>)=>data2.length;
+    }
+
+    /**
+     * Return true if length of the provided array is 0
+     * else return false.
+     */
+    export function empty<T>(data:Array<T>):boolean;
+    export function empty<T>():(data:Array<T>)=>number;
+    export function empty<T>(data?:Array<T>):any {
+        return data ? data.length === 0 : (data2:Array<T>)=>data2.length === 0;
+    }
+
+    /**
      * Create an array of size 'size' filled in by values created
      * by factory function fn. The parameter idx passed to fn
      * describes order of the item (0-based).
@@ -200,7 +219,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-
+    /**
+     * Sorts the original array using numbers produced by the map function.
+     */
     export function sortBy<T>(map:(v:T) => number, data:Array<T>):Array<T>;
     export function sortBy<T>(map:(v:T) => number):(data:Array<T>)=>Array<T>;
     export function sortBy<T>(map:(v:T) => number, data?:Array<T>):any {
@@ -208,10 +229,43 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
-    export function sort<T>(cmp:(v1:T, v2:T) => number, data:Array<T>):Array<T>;
-    export function sort<T>(cmp:(v1:T, v2:T) => number):(data:Array<T>)=>Array<T>;
-    export function sort<T>(cmp:(v1:T, v2:T) => number, data?:Array<T>):any {
-        const fn = (data2:Array<T>):Array<T> => data2.sort(cmp);
+    /**
+     * Sorts a copy of provided array using numbers produced by the map function.
+     */
+    export function sortedBy<T>(map:(v:T) => number, data:Array<T>):Array<T>;
+    export function sortedBy<T>(map:(v:T) => number):(data:Array<T>)=>Array<T>;
+    export function sortedBy<T>(map:(v:T) => number, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => [...data2].sort((v1, v2) => map(v1) - map(v2));
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Sorts the original array using strings produced by the map function.
+     */
+    export function sortAlphaBy<T>(map:(v:T) => string, data:Array<T>):Array<T>;
+    export function sortAlphaBy<T>(map:(v:T) => string):(data:Array<T>)=>Array<T>;
+    export function sortAlphaBy<T>(map:(v:T) => string, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => data2.sort((v1, v2) => map(v1).localeCompare(map(v2)));
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Just like List.sort() but produces a shallow copy.
+     */
+    export function sorted<T>(cmp:(v1:T, v2:T) => number, data:Array<T>):Array<T>;
+    export function sorted<T>(cmp:(v1:T, v2:T) => number):(data:Array<T>)=>Array<T>;
+    export function sorted<T>(cmp:(v1:T, v2:T) => number, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => [...data2].sort(cmp);
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Sorts the original array using strings produced by the map function.
+     */
+    export function sortedAlphaBy<T>(map:(v:T) => string, data:Array<T>):Array<T>;
+    export function sortedAlphaBy<T>(map:(v:T) => string):(data:Array<T>)=>Array<T>;
+    export function sortedAlphaBy<T>(map:(v:T) => string, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => [...data2].sort((v1, v2) => map(v1).localeCompare(map(v2)));
         return data ? fn(data) : fn;
     }
 
@@ -322,6 +376,11 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Remove a value for an array in case it is strictly
+     * equal to the provided one.
+     * The function mutates the original array.
+     */
     export function removeValue<T>(v:T, data:Array<T>):Array<T>;
     export function removeValue<T>(v:T):(data:Array<T>)=>Array<T>;
     export function removeValue<T>(v:T, data?:Array<T>):any {
@@ -378,7 +437,7 @@ export namespace List {
                 return data2[0];
             }
             throw Error('Calling head on empty array');
-        }
+        };
         return data ? fn(data) : fn;
     }
 
@@ -390,10 +449,14 @@ export namespace List {
                 return data2[data2.length - 1];
             }
             throw Error('Calling last on empty array');
-        }
+        };
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return all the items except the first one.
+     * If applied on an empty array an error is thrown.
+     */
     export function tail<T>(data:Array<T>):Array<T>;
     export function tail<T>():(data:Array<T>)=>Array<T>;
     export function tail<T>(data?:Array<T>):any {
@@ -401,7 +464,48 @@ export namespace List {
             if (data2 && data2.length > 0) {
                 return data2.slice(1);
             }
-            return [];
+            throw Error('Calling tail on empty array');
+        };
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Return all the items except the last one.
+     * If applied on an empty array an error is thrown.
+     */
+    export function init<T>(data:Array<T>):Array<T>;
+    export function init<T>():(data:Array<T>)=>Array<T>;
+    export function init<T>(data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (data2 && data2.length > 0) {
+                return data2.slice(0, -1);
+            }
+            throw Error('Calling init on empty array');
+        }
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Remove item at specified position. Negative numbers
+     * can be used to address from the end of the array.
+     * If idx is out of the array bounds (either positive
+     * or negative) an error is thrown.
+     * The function mutates the original array.
+     */
+    export function removeAt<T>(idx:number, data:Array<T>):Array<T>;
+    export function removeAt<T>(idx:number):(data:Array<T>)=>Array<T>;
+    export function removeAt<T>(idx:number, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (data2) {
+                if (idx < data2.length && idx >= -data2.length) {
+                    data2.splice(idx, 1);
+                    return data2;
+
+                } else {
+                    throw Error(`Index ${idx} is out of bounds`);
+                }
+            }
+            throw Error('Calling init on empty array');
         }
         return data ? fn(data) : fn;
     }
