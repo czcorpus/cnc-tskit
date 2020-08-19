@@ -33,6 +33,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 ## main scope
 
 * composeLeft
+* id
 * pipe
 * tuple
 
@@ -96,6 +97,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * removeValue
   * repeat
   * reverse
+  * reversed
   * shift
   * size
   * slice
@@ -136,3 +138,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 ## Strings
 
   * shortenText
+
+## URL
+
+  * join

@@ -91,3 +91,9 @@ export function tuple<T1>(...data:[T1]):typeof data;
 export function tuple(...data:Array<any>) {
     return data;
 }
+
+export function id<T>(v:T):T;
+export function id<T>():(v:T)=>T;
+export function id<T>(v?:T):any {
+    return v !== undefined ? v : (v:T) => v;
+}
