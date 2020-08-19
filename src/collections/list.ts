@@ -174,6 +174,19 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    export function reversed<T>(data:Array<T>):Array<T>;
+    export function reversed<T>():(data:Array<T>)=>Array<T>;
+    export function reversed<T>(data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            const ans:Array<T> = [];
+            for (let i = data2.length - 1; i >= 0; i--) {
+                ans.push(data2[i]);
+            }
+            return ans;
+        };
+        return data ? fn(data) : fn;
+    }
+
     export function reduce<T, U>(reducer:(acc:U, V:T, i:number)=>U, initial:U, data:Array<T>):U;
     export function reduce<T, U>(reducer:(acc:U, V:T, i:number)=>U, initial:U):(data:Array<T>)=>U;
     export function reduce<T, U>(reducer:(acc:U, V:T, i:number)=>U, initial:U, data?:Array<T>):any {

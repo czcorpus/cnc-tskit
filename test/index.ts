@@ -17,7 +17,7 @@
  */
 
 import { assert } from 'chai';
-import { List, tuple } from '../src/index';
+import { List, tuple, id } from '../src/index';
 
 describe('tuple', function () {
 
@@ -32,3 +32,20 @@ describe('tuple', function () {
         // which is the main thing we're interested here
     });
 });
+
+
+describe('id', function () {
+
+    it('works with non-undefined value', function () {
+        const orig = {foo: 10};
+        const x = id(orig);
+        assert.isTrue(orig === x);
+    });
+
+    it('works when called empty', function () {
+        const orig = {foo: 10};
+        const x = id();
+        assert.isFunction(x);
+        assert.isTrue(orig === x(orig));
+    });
+})

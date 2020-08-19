@@ -303,6 +303,12 @@ describe('List#reverse', function () {
         assert.deepEqual(m, ['d', 'c', 'b', 'a']);
     });
 
+    it('modifies original array', function () {
+        const orig = ['a', 'b'];
+        const m = List.reverse(orig);
+        assert.isTrue(orig === m);
+    });
+
     it('works properly on an empty array', function () {
         const m = List.reverse([]);
         assert.deepEqual(m, []);
@@ -310,6 +316,30 @@ describe('List#reverse', function () {
 
     it('works properly on a single item array', function () {
         const m = List.reverse([1]);
+        assert.deepEqual(m, [1]);
+    });
+});
+
+describe('List#reversed', function () {
+
+    it('works properly on regular data', function () {
+        const m = List.reversed(['a', 'b', 'c', 'd']);
+        assert.deepEqual(m, ['d', 'c', 'b', 'a']);
+    });
+
+    it('does not modify original array', function () {
+        const orig = ['a', 'b'];
+        const m = List.reversed(orig);
+        assert.isTrue(orig !== m);
+    });
+
+    it('works properly on an empty array', function () {
+        const m = List.reversed([]);
+        assert.deepEqual(m, []);
+    });
+
+    it('works properly on a single item array', function () {
+        const m = List.reversed([1]);
         assert.deepEqual(m, [1]);
     });
 });
