@@ -303,12 +303,6 @@ describe('List#reverse', function () {
         assert.deepEqual(m, ['d', 'c', 'b', 'a']);
     });
 
-    it('modifies original array', function () {
-        const orig = ['a', 'b'];
-        const m = List.reverse(orig);
-        assert.isTrue(orig === m);
-    });
-
     it('works properly on an empty array', function () {
         const m = List.reverse([]);
         assert.deepEqual(m, []);
@@ -318,6 +312,13 @@ describe('List#reverse', function () {
         const m = List.reverse([1]);
         assert.deepEqual(m, [1]);
     });
+
+    it('modifies original array', function () {
+        const orig = ['a', 'b'];
+        const m = List.reverse(orig);
+        assert.isTrue(orig === m);
+    });
+
 });
 
 describe('List#reversed', function () {
@@ -343,6 +344,7 @@ describe('List#reversed', function () {
         assert.deepEqual(m, [1]);
     });
 });
+
 
 describe('List#forEach', function () {
 
@@ -439,14 +441,31 @@ describe('List#shift', function () {
 
 describe('List#addUnique', function () {
 
-    it('works on regular primitive data', function () {
+    it('works with an empty array', function () {
+        const data:Array<number> = [];
+        const ans = List.addUnique(1, data);
+        assert.deepEqual(ans, [1]);
+    });
+
+    it('works on regular primitive data with no collision', function () {
+        const data = [2, 3, 4];
+        const ans = List.addUnique(1, data);
+        assert.deepEqual(ans, [2, 3, 4, 1]);
+    });
+
+    it('works on regular primitive data with collision', function () {
         const data = [1, 2, 3];
         const ans = List.addUnique(1, data);
         assert.deepEqual(ans, [1, 2, 3]);
     });
 
+    it('works on list of objects (strict comparison) with no collision', function () {
+        const data:Array<{[k:string]:number}> = [{b: 2}, {c: 3}];
+        const ans = List.addUnique({a: 1}, data);
+        assert.deepEqual(ans, [{b: 2}, {c: 3}, {a: 1}]);
+    });
 
-    it('works on list of objects (strict comparison)', function () {
+    it('works on list of objects (strict comparison) with collision', function () {
         const data = [{a: 1}, {b: 2}];
         const ans = List.addUnique({a: 1}, data);
         assert.deepEqual(ans, [{a: 1}, {b: 2}, {a: 1}]);
