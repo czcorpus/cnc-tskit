@@ -1,5 +1,5 @@
 import typescript from 'rollup-plugin-typescript2';
-import { uglify } from 'rollup-plugin-uglify';
+import { terser } from "rollup-plugin-terser";
 import pkg from './package.json';
 import path from 'path';
 
@@ -24,7 +24,7 @@ export default [
                     }
                 }
             }),
-            uglify()
+            terser()
 		]
     },
 	{
