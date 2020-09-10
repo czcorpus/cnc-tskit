@@ -112,6 +112,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * toDict
   * unique
   * zip
+  * zipAll
   * zipByMappedKey
 
 ## HTTP

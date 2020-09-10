@@ -89,6 +89,25 @@ describe('List#zip', function () {
 });
 
 
+describe('List#zipAll', function () {
+
+    it('should zipAll two equally long arrays', function () {
+        const ans = List.zipAll([0, 1, 2, 3], ['a', 'b', 'c', 'd']);
+        assert.deepEqual(ans, [ ['a', 0], ['b', 1], ['c', 2], ['d', 3] ]);
+    });
+
+    it('should zip when 1st is shorter than 2nd', function () {
+        const ans = List.zipAll([0, 1, 2, 3, 4, 5], ['a', 'b', 'c', 'd']);
+        assert.deepEqual(ans, [ ['a', 0], ['b', 1], ['c', 2], ['d', 3], [undefined, 4], [undefined, 5] ]);
+    });
+
+    it('should zip when 2nd is shorter than 1st', function () {
+        const ans = List.zipAll(['a', 'b', 'c', 'd'], [0, 1, 2, 3, 4, 5]);
+        assert.deepEqual(ans, [ [0, 'a'], [1, 'b'], [2, 'c'], [3, 'd'], [4, undefined], [5, undefined] ]);
+    });
+});
+
+
 describe('List#map', function () {
 
     it('works for a standard configuration', function () {

@@ -1,6 +1,6 @@
 {
   "name": "cnc-tskit",
-  "version": "0.21.1",
+  "version": "0.22.0",
   "description": "Bunch of reusable & composable TypeScript functions",
   "main": "dist-cjs/index.js",
   "module": "dist-es6/index.js",
