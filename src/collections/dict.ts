@@ -41,8 +41,8 @@ export namespace Dict {
     /**
      * Return true if number of object's keys/properties is zero.
      */
-    export function empty<V, K extends string>(data:Obj<V, K>):number;
-    export function empty<V, K extends string>():(data:Obj<V, K>)=>number;
+    export function empty<V, K extends string>(data:Obj<V, K>):boolean;
+    export function empty<V, K extends string>():(data:Obj<V, K>)=>boolean;
     export function empty<V, K extends string>(data?:Obj<V, K>):any {
         const fn = (data2:Obj<V, K>) => Object.keys(data2).length === 0;
         return data ? fn(data) : fn;

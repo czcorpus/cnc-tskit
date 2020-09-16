@@ -96,11 +96,11 @@ describe('Dict#size', function () {
 describe('Dict#empty', function () {
 
     it('works for a regular object', function () {
-        assert.isFalse(Dict.empty(mkData()));
+        assert.strictEqual(Dict.empty(mkData()), false);
     });
 
     it('works for an empty object', function () {
-        assert.isTrue(Dict.empty({}));
+        assert.strictEqual(Dict.empty({}), true);
     });
 
     it('ignores prototype\'s props', function () {
@@ -108,7 +108,7 @@ describe('Dict#empty', function () {
         }
         Foo.prototype.c = 'C';
         const t = new Foo();
-        assert.isTrue(Dict.empty(t));
+        assert.strictEqual(Dict.empty(t), true);
     });
 
 });
