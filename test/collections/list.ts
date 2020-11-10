@@ -108,6 +108,30 @@ describe('List#zipAll', function () {
 });
 
 
+describe('List#join', function () {
+
+    it('should work on a regular array', function () {
+        const input = [{v: 1}, {v: 2}, {v: 3}, {v: 4}];
+        const ans = List.join(() => ({v: -1}), input);
+        assert.deepEqual(ans, [ {v: 1}, {v: -1}, {v: 2}, {v: -1}, {v: 3}, {v: -1}, {v: 4} ]);
+        assert.notStrictEqual(ans[1], ans[3]);
+        assert.notStrictEqual(ans[3], ans[5]);
+        assert.notStrictEqual(ans[5], ans[1]);
+    });
+
+    it('works on an empty array', function () {
+        const ans = List.join(() => 3, []);
+        assert.deepEqual(ans, []);
+    });
+
+    it('works on an array of size 1', function () {
+        const ans = List.join(() => 3, [4]);
+        assert.deepEqual(ans, [4]);
+    });
+
+})
+
+
 describe('List#map', function () {
 
     it('works for a standard configuration', function () {
