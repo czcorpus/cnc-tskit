@@ -129,6 +129,12 @@ describe('List#join', function () {
         assert.deepEqual(ans, [4]);
     });
 
+    it('factory called with proper i argument', function () {
+        const input = [{v: 0}, {v: 2}, {v: 4}, {v: 6}];
+        const ans = List.join((i) => ({v: i}), input);
+        assert.deepEqual(ans, [ {v: 0}, {v: 1}, {v: 2}, {v: 3}, {v: 4}, {v: 5}, {v: 6} ]);
+    });
+
 })
 
 

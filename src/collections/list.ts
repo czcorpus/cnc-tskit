@@ -115,17 +115,19 @@ export namespace List {
     /**
      * Join items of an array using values produced by a factory
      * function joinItemFact.
-     * E.g. List.join(()=>'x', ['a', 'b']) produces ['a', 'x', 'b'].
+     * E.g. List.join((i)=>'x', ['a', 'b']) produces ['a', 'x', 'b'].
+     * The 'i' argument of the passed function is called with the resulting position
+     * of each join item (i.e. 1, 3, 5, 7, 9,...)
      */
-    export function join<T>(joinItemFact:()=>T, data:Array<T>):Array<T>;
-    export function join<T>(joinItemFact:()=>T):(data:Array<T>)=>Array<T>;
-    export function join<T>(joinItemFact:()=>T, data?:Array<T>):any {
+    export function join<T>(joinItemFact:(i:number)=>T, data:Array<T>):Array<T>;
+    export function join<T>(joinItemFact:(i:number)=>T):(data:Array<T>)=>Array<T>;
+    export function join<T>(joinItemFact:(i:number)=>T, data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<T> => {
             const ans:Array<T> = [];
             for (let i = 0; i < data2.length; i++) {
                 ans.push(data2[i]);
                 if (i < data2.length - 1) {
-                    ans.push(joinItemFact());
+                    ans.push(joinItemFact(2 * i + 1));
                 }
             }
             return ans;
