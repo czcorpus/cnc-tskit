@@ -88,6 +88,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * groupBy
   * head
   * init
+  * join
   * last
   * map
   * maxItem

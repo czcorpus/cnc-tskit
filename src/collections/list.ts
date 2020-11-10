@@ -112,6 +112,27 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Join items of an array using values produced by a factory
+     * function joinItemFact.
+     * E.g. List.join(()=>'x', ['a', 'b']) produces ['a', 'x', 'b'].
+     */
+    export function join<T>(joinItemFact:()=>T, data:Array<T>):Array<T>;
+    export function join<T>(joinItemFact:()=>T):(data:Array<T>)=>Array<T>;
+    export function join<T>(joinItemFact:()=>T, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            const ans:Array<T> = [];
+            for (let i = 0; i < data2.length; i++) {
+                ans.push(data2[i]);
+                if (i < data2.length - 1) {
+                    ans.push(joinItemFact());
+                }
+            }
+            return ans;
+        }
+        return data ? fn(data) : fn;
+    }
+
     export function map<T, U>(fn:(v:T, i:number)=>U):(data:Array<T>)=>Array<U>;
     export function map<T, U>(fn:(v:T, i:number)=>U, data:Array<T>):Array<U>;
     export function map<T, U>(fn:(v:T, i:number)=>U, data?:Array<T>):any {
