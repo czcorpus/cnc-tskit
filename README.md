@@ -67,6 +67,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * mapEntries
   * mergeDict
   * size
+  * some
   * toEntries
 
 
