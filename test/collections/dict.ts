@@ -141,6 +141,21 @@ describe('Dict#toEntries', function () {
 
 });
 
+describe('Dict#some', function () {
+
+    it('works for a regular object', function () {
+        const ans = Dict.some((v, k) => typeof v === 'string', mkData());
+        assert.equal(ans, false);
+        const ans2 = Dict.some((v, k) => v > 10, mkData());
+        assert.equal(ans2, true);
+    });
+
+    it('works for an empty object', function () {
+        assert.equal(Dict.some((v, k) => false, {}), false);
+    });
+
+});
+
 describe('Dict#every', function () {
 
     it('works for a regular object', function () {

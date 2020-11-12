@@ -93,6 +93,20 @@ export namespace Dict {
         return data ? fn(data) : fn;
     }
 
+    export function some<V, K extends string>(pred:(v:V, k:K)=>boolean, data:Obj<V, K>):boolean;
+    export function some<V, K extends string>(pred:(v:V, k:K)=>boolean):(data:Obj<V, K>)=>boolean;
+    export function some<V, K extends string>(pred:(v:V, k:K)=>boolean, data?:Obj<V, K>):any {
+        const fn = (data2:Obj<V, K>):boolean => {
+            for (let k in data2) {
+                if (pred(data2[k], k)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return data ? fn(data) : fn;
+    }
+
     export function every<V, K extends string>(pred:(v:V, k:K)=>boolean, data:Obj<V, K>):boolean;
     export function every<V, K extends string>(pred:(v:V, k:K)=>boolean):(data:Obj<V, K>)=>boolean;
     export function every<V, K extends string>(pred:(v:V, k:K)=>boolean, data?:Obj<V, K>):any {
