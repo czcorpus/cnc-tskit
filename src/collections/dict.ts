@@ -29,6 +29,38 @@ export namespace Dict {
     }
 
     /**
+     * Set a new value 'v' under the key 'k'.
+     * Please note that the function does not allow setting undefined.
+     * Mutates the original object.
+     */
+    export function set<V, K extends string>(k:string, v:V, data:Obj<V, K>):Obj<V, K>;
+    export function set<V, K extends string>(k:string, v:V):(data:Obj<V, K>)=>Obj<V, K>;
+    export function set<V, K extends string>(k:string, v:V, data?:Obj<V, K>):any {
+        const fn = (data2:Obj<V, K>) => {
+            if (v === undefined) {
+                throw new Error('Dict.set - cannot set undefined as a value of object');
+            }
+            data2[k] = v;
+            return data2;
+        }
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Remove an existing value under the key 'k'.
+     * Mutates the original object.
+     */
+    export function remove<V, K extends string>(k:string, data:Obj<V, K>):Obj<V, K>;
+    export function remove<V, K extends string>(k:string):(data:Obj<V, K>)=>Obj<V, K>;
+    export function remove<V, K extends string>(k:string, data?:Obj<V, K>):any {
+        const fn = (data2:Obj<V, K>) => {
+            delete data2[k];
+            return data2;
+        }
+        return data ? fn(data) : fn;
+    }
+
+    /**
      * Return number of keys/properties of a provided object
      */
     export function size<V, K extends string>(data:Obj<V, K>):number;

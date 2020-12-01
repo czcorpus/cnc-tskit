@@ -66,6 +66,8 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * map
   * mapEntries
   * mergeDict
+  * remove
+  * set
   * size
   * some
   * toEntries
@@ -93,6 +95,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * last
   * map
   * maxItem
+  * push
   * range
   * reduce
   * removeAt
@@ -113,6 +116,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * tail
   * toDict
   * unique
+  * unshift
   * zip
   * zipAll
   * zipByMappedKey

@@ -523,6 +523,48 @@ describe('List#addUnique', function () {
 });
 
 
+describe('List#push', function () {
+
+    it('works for regular data', function () {
+        const data = [1, 2, 3];
+        const data2 = List.push(4, data);
+        assert.deepEqual(data2, [1, 2, 3, 4]);
+    });
+
+    it('works for an empty array', function () {
+        const data = [];
+        const data2 = List.push(4, data);
+        assert.deepEqual(data2, [4]);
+    });
+
+    it('cannot push undefined value', function () {
+        assert.throws(() => List.push(undefined, []));
+    });
+
+});
+
+
+describe('List#unshift', function () {
+
+    it('works for regular data', function () {
+        const data = [1, 2, 3];
+        const data2 = List.unshift(4, data);
+        assert.deepEqual(data2, [4, 1, 2, 3]);
+    });
+
+    it('works for an empty array', function () {
+        const data = [];
+        const data2 = List.unshift(4, data);
+        assert.deepEqual(data2, [4]);
+    });
+
+    it('cannot push undefined value', function () {
+        assert.throws(() => List.unshift(undefined, []));
+    });
+
+});
+
+
 describe('List#unique', function () {
 
     it('works on regular data', function () {
