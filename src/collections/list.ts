@@ -258,8 +258,8 @@ export namespace List {
     }
 
 
-    export function groupBy<T>(mapper:(v:T, i:number)=>string, data:Array<T>):Array<[string, Array<T>]>
-    export function groupBy<T>(mapper:(v:T, i:number)=>string):(data:Array<T>)=>Array<[string, Array<T>]>
+    export function groupBy<T>(mapper:(v:T, i:number)=>string, data:Array<T>):Array<[string, Array<T>]>;
+    export function groupBy<T>(mapper:(v:T, i:number)=>string):(data:Array<T>)=>Array<[string, Array<T>]>;
     export function groupBy<T>(mapper:(v:T, i:number)=>string, data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<[string, Array<T>]> => {
             const ans = {} as {[k:string]:Array<T>};
@@ -271,6 +271,24 @@ export namespace List {
                 ans[mapper(v, i)].push(v);
             });
             return Dict.toEntries(ans);
+        };
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Add item 'v' to the end of the provided array.
+     * Pushing undefined value is not allowed.
+     * Mutates the original array.
+     */
+    export function push<T>(v:T, data:Array<T>):Array<T>;
+    export function push<T>(v:T):(data:Array<T>)=>Array<T>;
+    export function push<T>(v:T, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (v === undefined) {
+                throw Error('List.push - cannot insert undefined');
+            }
+            data2.push(v);
+            return data2;
         };
         return data ? fn(data) : fn;
     }
@@ -393,6 +411,23 @@ export namespace List {
     export function shift<T>(data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<T> => {
             data2.splice(0, 1);
+            return data2;
+        };
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Add item 'v' to the beginning of the provided array.
+     * Mutates the original array.
+     */
+    export function unshift<T>(v:T, data:Array<T>):Array<T>;
+    export function unshift<T>(v:T):(data:Array<T>)=>Array<T>;
+    export function unshift<T>(v:T, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => {
+            if (v === undefined) {
+                throw Error('List.unshift - cannot insert undefined.');
+            }
+            data2.unshift(v);
             return data2;
         };
         return data ? fn(data) : fn;

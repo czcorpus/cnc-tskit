@@ -40,6 +40,54 @@ describe('Dict#get', function () {
 
 });
 
+describe('Dict#set', function () {
+
+    it('works for an ordinary key and value', function () {
+        const data = {};
+        const data2 = Dict.set('foo', 'bar', data);
+        assert.deepEqual(data2, {foo: 'bar'});
+    });
+
+    it('mutates the original object', function () {
+        const data = {};
+        const data2 = Dict.set('foo', 'bar', data);
+        assert.strictEqual(data2, data);
+    });
+
+    it('works if key is already present', function () {
+        const data = {foo: 'baz'};
+        const data2 = Dict.set('foo', 'bar', data);
+        assert.deepEqual(data2, {foo: 'bar'});
+    });
+
+    it('does not allow setting undefined', function () {
+        assert.throws(() => Dict.set('k', undefined, {}));
+    });
+
+});
+
+describe('Dict#remove', function () {
+
+    it('works for an existing key', function () {
+        const data:{[k:string]:string} = {foo: 'bar', boo: 'baz'};
+        const data2 = Dict.remove('foo', data);
+        assert.deepEqual(data2, {boo: 'baz'});
+    });
+
+    it('works for a non existing key', function () {
+        const data:{[k:string]:string} = {foo: 'bar'};
+        const data2 = Dict.remove('boo', data);
+        assert.deepEqual(data2, {foo: 'bar'});
+    });
+
+    it('mutates the original object', function () {
+        const data:{[k:string]:string} = {foo: 'bar'};
+        const data2 = Dict.remove('boo', data);
+        assert.strictEqual(data2, data);
+    });
+
+});
+
 describe('Dict#keys', function () {
 
     it('works for a regular object', function () {
