@@ -32,6 +32,72 @@ export namespace Keyboard {
         END = 35
     }
 
+    export enum Value {
+        UNIDENTIFIED = "Unidentified",
+
+        // modifier keys
+        ALT = "Alt",
+        ALT_GR = "AltGraph",
+        CAPS_LOCK = "CapsLock",
+        CTRL = "Control",
+        FN = "Fn",
+        FN_LOCK = "FnLock",
+        HYPER = "Hyper",
+        META = "Meta",
+        NUM_LOCK = "NumLock",
+        SCROLL_LOCK = "ScrollLock",
+        SHIFT = "Shift",
+        SUPER = "Super",
+        SYMBOL = "Symbol",
+        SYMBOL_LOCK = "SymbolLock",
+
+        // whitespace keys
+        ENTER = "Enter",
+        TAB = "Tab",
+        SPACE = " ",
+
+        // navigation keys
+        DOWN_ARROW = "ArrowDown",
+        UP_ARROW = "ArrowUp",
+        LEFT_ARROW = "ArrowLeft",
+        RIGHT_ARROW = "ArrowRight",
+        END = "End",
+        HOME = "Home",
+        PG_DOWN = "PageDown",
+        PG_UP = "PageUp",
+
+        // editing keys
+        BACKSPACE = "Backspace",
+        CLEAR = "Clear",
+        COPY = "Copy",
+        CURSOR_SEL = "CrSel",
+        CUT = "Cut",
+        DEL = "Delete",
+        ERASE_EOF = "EraseEof",
+        EXTEND_SEL = "ExSel",
+        INSERT = "Insert",
+        PASTE = "Paste",
+        REDO = "Redo",
+        UNDO = "Undo",
+
+        // UI keys
+        ACCEPT = "Accept",
+        AGAIN = "Again",
+        ATTENTION = "Attn",
+        CANCEL = "Cancel",
+        CTX_MENU = "ContextMenu",
+        ESC = "Escape",
+        EXECUTE = "Execute",
+        FIND = "Find",
+        HELP = "Help",
+        PAUSE = "Pause",
+        PLAY = "Play",
+        PROPS = "Props",
+        SELECT = "Select",
+        ZOOM_IN = "ZoomIn",
+        ZOOM_OUT = "ZoomOut"
+    }
+
     export function isArrowKey(code:number):boolean {
         return code === Code.UP_ARROW || code === Code.DOWN_ARROW ||
                 code === Code.LEFT_ARROW || code === Code.RIGHT_ARROW;
