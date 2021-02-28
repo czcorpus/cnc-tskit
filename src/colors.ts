@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+import { List } from "./collections/list";
+
 export namespace Color {
 
     export type RGBA = [number, number, number, number];
@@ -173,6 +175,23 @@ export namespace Color {
                 return [hue, sat, lum];
             }
         };
+        return rgb ? fn(rgb) : fn;
+    }
+
+    /**
+     * Convert RGBA value to hexadecial ignoring opacity
+     */
+    export function rgb2Hex(rgb:RGBA):string;
+    export function rgb2Hex():(rgb:RGBA)=>string;
+    export function rgb2Hex(rgb?:RGBA):any {
+        const dd = (s:string) => s.length === 1 ? `0${s}` : s;
+        const invalid = (r:RGBA) => r.findIndex(v => v > 255 || v < 0) > -1;
+        const fn = (rgb2:RGBA) => {
+            if (invalid(rgb2)) {
+                throw new Error(`color2Hex error - invalid RGB value ${rgb2}`);
+            }
+            return `#${dd(rgb2[0].toString(16))}${dd(rgb2[1].toString(16))}${dd(rgb2[2].toString(16))}`.toUpperCase();
+        }
         return rgb ? fn(rgb) : fn;
     }
 }
