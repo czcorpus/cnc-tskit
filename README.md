@@ -48,6 +48,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * hsl2Rgb
   * importColor
   * luminosity
+  * rgb2Hex
   * rgb2Hsl
   * textColorFromBg
 

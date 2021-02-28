@@ -150,3 +150,29 @@ describe('Color pipeability', function () {
   });
 
 });
+
+describe('rgb2hex', function () {
+
+  it('converts black', function () {
+    assert.equal(Color.rgb2Hex([0, 0, 0, 0]), '#000000');
+  });
+
+  it('converts white', function () {
+    assert.equal(Color.rgb2Hex([255, 255, 255, 0]), '#FFFFFF');
+  });
+
+  it('converts random color', function () {
+    assert.equal(Color.rgb2Hex([61, 171, 51, 0]), '#3DAB33');
+  });
+
+  it('ignores opacity', function () {
+    assert.isTrue(Color.rgb2Hex([14, 17, 176, 0]) === Color.rgb2Hex([14, 17, 176, 1]));
+  });
+
+  it('throws an error on ivalid rgba value', function () {
+    assert.throws(function () {
+      Color.rgb2Hex([61, 257, 51, 0])
+    });
+  });
+
+});
