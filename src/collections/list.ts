@@ -135,6 +135,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Apply a function to each array member and return a new array.
+     */
     export function map<T, U>(fn:(v:T, i:number)=>U):(data:Array<T>)=>Array<U>;
     export function map<T, U>(fn:(v:T, i:number)=>U, data:Array<T>):Array<U>;
     export function map<T, U>(fn:(v:T, i:number)=>U, data?:Array<T>):any {
@@ -172,6 +175,10 @@ export namespace List {
         return data ? partial(data) : partial;
     }
 
+    /**
+     * Convert an array to a dict with keys corresponding to
+     * the original items indices.
+     */
     export function toDict<T>(data:Array<T>):{[key:string]:T};
     export function toDict<T>():(data:Array<T>)=>{[key:string]:T};
     export function toDict<T>(data?:Array<T>):any {
@@ -185,6 +192,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return a value producing max. value
+     * when a mapper function is applied to it.
+     */
     export function maxItem<T>(mapper:(v:T)=>number, data:Array<T>):T;
     export function maxItem<T>(mapper:(v:T)=>number):(data:Array<T>)=>T;
     export function maxItem<T>(mapper:(v:T)=>number, data?:Array<T>):any {
@@ -200,6 +211,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Convert an array of arrays into a 1-dimensional array.
+     */
     export function flatMap<T, U>(mapper:(v:T, i:number) => Array<U>, data:Array<T>):Array<U>;
     export function flatMap<T, U>(mapper:(v:T, i:number) => Array<U>):(data:Array<T>)=>Array<U>;
     export function flatMap<T, U>(mapper:(v:T, i:number) => Array<U>, data?:Array<T>):any {
@@ -210,6 +224,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Reverse the original array.
+     */
     export function reverse<T>(data:Array<T>):Array<T>;
     export function reverse<T>():(data:Array<T>)=>Array<T>;
     export function reverse<T>(data?:Array<T>):any {
@@ -217,6 +234,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Create a new array with a reversed item order.
+     */
     export function reversed<T>(data:Array<T>):Array<T>;
     export function reversed<T>():(data:Array<T>)=>Array<T>;
     export function reversed<T>(data?:Array<T>):any {
