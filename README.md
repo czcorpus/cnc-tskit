@@ -147,6 +147,10 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 
   * shortenText
 
+## Time
+
+  * time2Hms
+
 ## URL
 
   * join

@@ -18,17 +18,23 @@
 
 export namespace Time {
 
+    /**
+     * Convert a number of seconds to a formatted string
+     * hh:mm:ss. Supports also negative values.
+     */
     export function secs2hms():(s:number)=>string;
     export function secs2hms(s:number):string;
     export function secs2hms(s?:number):any {
         const fn = (s2:number) => {
-            const h = Math.floor(s2 / 3600);
-            const m = Math.floor((s2 % 3600) / 60);
-            const s = s2 % 60;
+            const sgn = s2 < 0 ? '-' : '';
+            const s3 = Math.abs(s2);
+            const h = Math.floor(s3 / 3600);
+            const m = Math.floor((s3 % 3600) / 60);
+            const s = s3 % 60;
             const lz = (v:number) => v < 10 ? `0${v.toFixed()}` : v.toFixed();
-            return `${lz(h)}:${lz(m)}:${lz(s)}`;
+            return `${sgn}${lz(h)}:${lz(m)}:${lz(s)}`;
         };
-        return s ? fn(s) : fn;
+        return s !== undefined ? fn(s) : fn;
     }
 
 }
