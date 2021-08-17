@@ -363,7 +363,14 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Filter array items using a defined predicate. The function can be also used
+     * to narrow types of the items (e.g. an array of both strings and numbers can be
+     * filtered to an array of just numbers or just strings).
+     */
+    export function filter<T, S extends T>(pred:(v:T, i:number)=>v is S, data:Array<T>):Array<S>;
     export function filter<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):Array<T>;
+    export function filter<T, S extends T>(pred:(v:T, i:number)=>v is S):(data:Array<T>)=>Array<S>;
     export function filter<T>(pred:(v:T, i:number)=>boolean):(data:Array<T>)=>Array<T>;
     export function filter<T>(pred:(v:T, i:number)=>boolean, data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<T> => data2.filter(pred);

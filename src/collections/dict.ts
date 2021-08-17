@@ -166,7 +166,13 @@ export namespace Dict {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Filter object properties using a defined predicate. The function can be also used
+     * to narrow types of values within an object.
+     */
+    export function filter<V, U extends V, K extends string>(pred:(v:V, k:K)=>v is U, data:Obj<V, K>):Obj<U, K>;
     export function filter<V, K extends string>(pred:(v:V, k:K)=>boolean, data:Obj<V, K>):Obj<V, K>;
+    export function filter<V, U extends V, K extends string>(pred:(v:V, k:K)=>v is U):(data:Obj<V, K>)=>Obj<U, K>;
     export function filter<V, K extends string>(pred:(v:V, k:K)=>boolean):(data:Obj<V, K>)=>Obj<V, K>;
     export function filter<V, K extends string>(pred:(v:V, k:K)=>boolean, data?:Obj<V, K>):any {
         const fn = (data2:Obj<V, K>):Obj<V, K> => {
