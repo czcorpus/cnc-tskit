@@ -190,6 +190,20 @@ describe('List#filter', function () {
         assert.deepEqual(ans, ['a', 'c', 'e', 'g']);
     });
 
+    it('works with type assertion predicate', function () {
+        interface Item {item:number};
+
+        function itemIsItem(v:number|Item):v is Item { return v['item'] !== undefined};
+
+        const ans:Array<Item> = List.filter(
+            itemIsItem,
+            [1, {item: 2}, 3, 4, {item: 5}]
+        );
+
+        assert.deepEqual(ans, [{item: 2}, {item: 5}]);
+
+    });
+
 });
 
 

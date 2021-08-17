@@ -250,6 +250,26 @@ describe('Dict#filter', function () {
         assert.deepEqual(Dict.filter((v, k) => k < 'b', mkData()), {'a':10});
     });
 
+    it('type narrowing works', function () {
+
+        interface Item {item:number};
+
+        function itemIsItem(v:number|Item):v is Item { return v['item'] !== undefined};
+
+        const data:{[k:string]:number|Item} = {
+            k1: {item: 1},
+            k2: 2,
+            k3: 3,
+            k4: {item: 4}
+        };
+
+        const ans:{[k:string]:Item}  = Dict.filter(
+            itemIsItem,
+            data
+        );
+
+        assert.deepEqual(ans, {k1: {item: 1}, k4: {item: 4}});
+    });
 });
 
 describe('Dict#hasValue', function () {
