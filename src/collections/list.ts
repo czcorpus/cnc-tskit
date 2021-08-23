@@ -377,6 +377,12 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     *
+     * Return a new array with elements from 'start' (including) to 'end' (excluding).
+     * The 'end' argument can be negative - in such case, the value is added to the
+     * last possible index value ([0, 1, 2, 3, 4] with end = -2 goes up to '2')
+     */
     export function slice<T>(start:number, end:number, data:Array<T>):Array<T>;
     export function slice<T>(start:number, end:number):(data:Array<T>)=>Array<T>;
     export function slice<T>(start:number):(data:Array<T>)=>Array<T>;
@@ -385,6 +391,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Apply a side-effect using provided array.
+     */
     export function forEach<T>(effect:(v:T, i:number)=>void, data:Array<T>):Array<T>;
     export function forEach<T>(effect:(v:T, i:number)=>void):(data:Array<T>)=>Array<T>;
     export function forEach<T>(effect:(v:T, i:number)=>void, data?:Array<T>):any {
@@ -398,7 +407,7 @@ export namespace List {
     /**
      * zipByMappedKey zips multiple arrays containing the same datatype T
      * tranforming them into type U and deciding which items belong together using
-     * 'map' function. Because the type U is independent of T also a factory
+     * 'map' function. Because the type U is independent of T, also a factory
      * for type U must be provided (dfltFact()). Items of type T are merged into U
      * using importer() function.
      * @param data
@@ -512,6 +521,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Find an array item based on a predicate. If nothing is found, undefined is returned.
+     *
+     */
     export function find<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):T|undefined;
     export function find<T>(pred:(v:T, i:number)=>boolean):(data:Array<T>)=>T|undefined;
     export function find<T>(pred:(v:T, i:number)=>boolean, data?:Array<T>):any {
@@ -519,6 +532,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Find an index of an array item based on a predicate. If nothing is
+     * found then -1 is returned.
+     */
     export function findIndex<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):number;
     export function findIndex<T>(pred:(v:T, i:number)=>boolean):(data:Array<T>)=>number;
     export function findIndex<T>(pred:(v:T, i:number)=>boolean, data?:Array<T>):any {
@@ -526,6 +543,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Test whether at least one item matches a provided predicate.
+     */
     export function some<T>(pred:(v:T)=>boolean, data:Array<T>):boolean;
     export function some<T>(pred:(v:T)=>boolean):(data:Array<T>)=>boolean;
     export function some<T>(pred:(v:T)=>boolean, data?:Array<T>):any {
@@ -533,6 +553,9 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Test whether all the array items match a provided predicate.
+     */
     export function every<T>(pred:(v:T)=>boolean, data:Array<T>):boolean;
     export function every<T>(pred:(v:T)=>boolean):(data:Array<T>)=>boolean;
     export function every<T>(pred:(v:T)=>boolean, data?:Array<T>):any {
@@ -540,6 +563,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Concat two arrays. Please recall that the working data argument
+     * comes in second (just like in all the other functions).
+     */
     export function concat<T>(incoming:Array<T>, data:Array<T>):Array<T>;
     export function concat<T>(incoming:Array<T>):(data:Array<T>)=>Array<T>;
     export function concat<T>(incoming:Array<T>, data?:Array<T>):any {
@@ -547,6 +574,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return the first item of an array. In case the array
+     * is empty, an error is thrown.
+     */
     export function head<T>(data:Array<T>):T;
     export function head<T>():(data:Array<T>)=>T;
     export function head<T>(data?:Array<T>):any {
@@ -559,6 +590,10 @@ export namespace List {
         return data ? fn(data) : fn;
     }
 
+    /**
+     * Return the last item of an array. In case the array
+     * is empty, an error is thrown.
+     */
     export function last<T>(data:Array<T>):T;
     export function last<T>():(data:Array<T>)=>T;
     export function last<T>(data?:Array<T>):any {

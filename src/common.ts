@@ -17,4 +17,7 @@
  */
 
 export type Fn<T, U> = (v:T) => U;
-export type Obj<V, K extends string> = {[k in K]:V};
+
+export type DictType<V, K extends string> = {[k in K]:V};
+
+export type KeyArgType = string|number;
