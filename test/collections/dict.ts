@@ -20,6 +20,7 @@
 
 import { Dict } from '../../src/collections/dict';
 import { assert } from 'chai';
+import { tuple } from '../../src/index';
 
 const mkData = ():{[k:string]:number} => ({a: 10, b: 20});
 const mkDataEntries = ():Array<[string, number]> => ([['a', 10], ['b', 20]]);
@@ -60,8 +61,10 @@ describe('Dict#set', function () {
         assert.deepEqual(data2, {foo: 'bar'});
     });
 
-    it('does not allow setting undefined', function () {
-        assert.throws(() => Dict.set('k', undefined, {}));
+    it('allows setting undefined', function () {
+        const data = {};
+        Dict.set('k', undefined, data);
+        assert.isTrue(Object.prototype.hasOwnProperty.call(data, 'k'))
     });
 
 });
@@ -270,6 +273,7 @@ describe('Dict#filter', function () {
 
         assert.deepEqual(ans, {k1: {item: 1}, k4: {item: 4}});
     });
+
 });
 
 describe('Dict#hasValue', function () {
@@ -296,6 +300,11 @@ describe('Dict#hasKey', function () {
         assert.equal(Dict.hasKey('anything', {}), false);
     });
 
+    it('handles "undefined" values just like regular JS (= key exists for undefined values)', function () {
+        const data = {foo: undefined};
+        assert.isTrue(Dict.hasKey('foo', data));
+    });
+
 });
 
 describe('Dict#find', function () {
@@ -319,8 +328,8 @@ describe('Dict#find', function () {
 describe('Dict#mapEntries', function () {
 
     it('works for a regular object', function () {
-        const ans = Dict.mapEntries(([k, v]) => [k.toUpperCase(), 10*v], mkData());
-        assert.deepEqual(ans, [['A', 100], ['B', 200]]);
+        const ans = Dict.mapEntries(([k, v]) => `${k}:${10*v}`, mkData());
+        assert.deepEqual(ans, [['a', 'a:100'], ['b', 'b:200']]);
     });
 
 });
@@ -382,3 +391,28 @@ describe('Dict#clear', function () {
     });
 
 });
+
+
+describe('Dict#clone', function () {
+
+    it('produces a shallow copy', function () {
+        const item1 = {name: 'item1'};
+        const data = {
+            a: item1,
+            b: 10
+        };
+        const data2 = Dict.clone(data);
+        assert.isTrue(data.a === data2.a);
+        assert.isTrue(data.b === data2.b);
+    });
+});
+
+
+describe('Dict#normalize', function () {
+
+    it('removes undefined properly', function () {
+        const data:{[k:string]:any} = {a: 1, b: undefined, c: null, d: undefined, e: ''};
+        const ans = Dict.normalize(data);
+        assert.deepEqual(ans, {a: 1, c: null, e: ''});
+    });
+})

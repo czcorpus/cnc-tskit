@@ -29,8 +29,8 @@ export namespace Color {
         return c ? fn(c) : fn;
     }
 
-    export function textColorFromBg():(bgColor:RGBA)=>RGBA;
     export function textColorFromBg(bgColor:RGBA):RGBA;
+    export function textColorFromBg():(bgColor:RGBA)=>RGBA;
     export function textColorFromBg(bgColor?:RGBA):any {
         const fn = (bgColor2) => {
             const color = bgColor2 ? bgColor2 : [255, 255, 255, 1];
