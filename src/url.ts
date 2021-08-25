@@ -39,11 +39,14 @@ export namespace URL {
 
     /**
      * Convert a value (typically an object) to a list of [key, value] pairs
-     * with value converted to string as follows:
-     * undefined => the [key, value] is excluded from the result
-     * null => [key, ''] (i.e. it is treated as a "flag" argument)
-     * boolean => true => 1, false => 0
-     * otherwise => string representation of the value
+     * with:
+     * keys converted to string
+     * value converted to string as follows:
+     *   undefined => the [key, value] is excluded from the result
+     *   null => [key, ''] (i.e. it is treated as a "flag" argument)
+     *   boolean => true => 1, false => 0
+     *   otherwise => string representation of the value
+     * both keys and values URL-escaped
      *
      * In case a value is of Array type, it is flattened
      * and the order of items in the array is preserved.
@@ -94,8 +97,8 @@ export namespace URL {
             }),
             List.flatMap(
                 ([k, v]) => Array.isArray(v) ?
-                    List.map(item => tuple('' + k, '' + item), v) :
-                    [tuple('' + k,  '' + v)]
+                    List.map(item => tuple(encodeURIComponent(k), encodeURIComponent(item)), v) :
+                    [tuple(encodeURIComponent(k),  encodeURIComponent(v))]
             )
         );
         return obj !== undefined ? fn(obj) : fn;
