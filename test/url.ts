@@ -94,5 +94,9 @@ describe('URL#valueToPairs', function () {
         assert.deepEqual(URL.valueToPairs(null), []);
     });
 
+    it('escapes keys and values', function () {
+        const ans = URL.valueToPairs({'key=x': 'one two'});
+        assert.deepEqual(ans, [ ['key%3Dx', 'one%20two']])
+    });
 
 });
