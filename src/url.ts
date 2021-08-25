@@ -18,7 +18,7 @@
 
 import { List } from './collections/list';
 import { pipe, tuple } from './index';
-import { Interface } from './interface';
+
 
 export namespace URL {
 
@@ -35,21 +35,51 @@ export namespace URL {
             );
     }
 
+    type EntriesOf<T> = Array<[keyof T, T[keyof T]]>;
+
     /**
-     * Convert an object to a list of [key, value] pairs with value converted
-     * to string as follows:
+     * Convert a value (typically an object) to a list of [key, value] pairs
+     * with value converted to string as follows:
      * undefined => the [key, value] is excluded from the result
      * null => [key, ''] (i.e. it is treated as a "flag" argument)
      * boolean => true => 1, false => 0
      * otherwise => string representation of the value
      *
      * In case a value is of Array type, it is flattened
+     * and the order of items in the array is preserved.
      * (e.g. {k1: ['foo', 'bar']} is transformed into [ ['k1', 'foo'], ['k1', 'bar'] ])
+     *
+     * Array is converted into pairs where keys are '0', '1', '2',...
+     * 'null' is converted into an empty array
+     * Other values (string, number, bool,...) return a single pair with key '0'
      */
-    export function objectToArgs<T>(obj:T):Array<[string, string]> {
-        return pipe(
-            obj,
-            Interface.toEntries(),
+    export function valueToPairs<T>(obj:T):Array<[string, string]>;
+    export function valueToPairs<T>():(obj:T)=>Array<[string, string]>;
+    export function valueToPairs<T>(obj?:T):any {
+
+
+        const toEntries = (v:T) => {
+            if (Array.isArray(v)) {
+                return v.map((v, i) => [i, v]);
+
+            } else if (v === null) {
+                return [];
+
+            } else if (typeof v === 'object') {
+                const ans:EntriesOf<T> = [];
+                Object.keys(v).forEach((k) => {
+                    ans.push([k as keyof T, v[k]])
+                });
+                return ans;
+
+            } else {
+                return [[0, v]];
+            }
+        };
+
+        const fn = (obj2:T) => pipe(
+            obj2 ? obj2 : {},
+            toEntries,
             List.filter(([, v]) => v !== undefined),
             List.map(([k, v]) => {
               if (v === null) {
@@ -64,10 +94,11 @@ export namespace URL {
             }),
             List.flatMap(
                 ([k, v]) => Array.isArray(v) ?
-                    List.map(item => tuple('' + v, '' + item), v) :
+                    List.map(item => tuple('' + k, '' + item), v) :
                     [tuple('' + k,  '' + v)]
-            ),
+            )
         );
+        return obj !== undefined ? fn(obj) : fn;
     }
 
 }

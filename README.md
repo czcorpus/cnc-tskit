@@ -143,11 +143,6 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * `puid():string`
   * `hashCode(s:string):string`
 
-## Interface
-
-  * `type EntriesOf<T>`
-  * `toEntries<T>(v:T):EntriesOf<T>`
-
 ## Maths
 
   * `enum AlphaLevel`
@@ -166,4 +161,4 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 ## URL
 
   * `join(...path:string[]):string`
-  * `objectToArgs<T>(obj:T):Array<[string, string]>`
+  * `valueToPairs<T>(obj:T):Array<[string, string]>`

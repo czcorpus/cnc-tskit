@@ -40,8 +40,6 @@ export { Time } from './time';
 
 export { URL } from './url';
 
-export { Interface } from './interface';
-
 /**
  * Apply one or more functions (from left to right) to a provided argument.
  */

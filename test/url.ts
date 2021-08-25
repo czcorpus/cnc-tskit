@@ -52,5 +52,47 @@ describe('URL#join', function () {
         assert.equal(leading, 'a/b/c/');
         assert.equal(both, '/a/b/c/');
     });
+});
+
+
+describe('URL#valueToPairs', function () {
+
+    it('works for a regular object with a defined interface', function () {
+
+        interface User {
+            name:string;
+            age:number;
+            tag:Array<string>;
+        }
+
+        const user:User = {name: 'John', age: 30, tag: ['user', 'admin', 'owner']};
+
+        const ans = URL.valueToPairs(user).sort(([k1,], [k2,]) => k1.localeCompare(k2));
+        assert.deepStrictEqual(ans[0], ['age', '30']);
+        assert.deepStrictEqual(ans[1], ['name', 'John']);
+        assert.deepStrictEqual(ans[2], ['tag', 'user']);
+        assert.deepStrictEqual(ans[3], ['tag', 'admin']);
+        assert.deepStrictEqual(ans[4], ['tag', 'owner']);
+    });
+
+    it('returns a function in case no arg is provided (regression test, issue #54)', function () {
+        assert.typeOf(URL.valueToPairs(), 'function');
+    });
+
+    it('handles other inputs', function () {
+        assert.deepEqual(URL.valueToPairs('3'), [['0', '3']]);
+        assert.deepEqual(URL.valueToPairs(123), [['0', '123']]);
+        assert.deepEqual(URL.valueToPairs(true), [['0', '1']]);
+    });
+
+    it('handles array input', function () {
+        const ans = URL.valueToPairs(['a', 'b', 'c']);
+        assert.deepEqual(ans, [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]);
+    });
+
+    it('handles null', function () {
+        assert.deepEqual(URL.valueToPairs(null), []);
+    });
+
 
 });
