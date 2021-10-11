@@ -255,6 +255,53 @@ describe('List#findIndex', function () {
 });
 
 
+
+describe('List#concat', function () {
+
+    it('works on a regular example', function () {
+        const a1 = [0, 1, 2, 3];
+        const a2 = [4, 5, 6];
+        assert.deepEqual(List.concat(a2, a1), [0, 1, 2, 3, 4, 5, 6]);
+    });
+
+    it('works with incoming empty', function () {
+        const a1 = [0, 1, 2, 3];
+        const a2 = [];
+        assert.deepEqual(List.concat(a2, a1), [0, 1, 2, 3]);
+    });
+
+    it('works with data empty', function () {
+        const a1 = [];
+        const a2 = [4, 5, 6];
+        assert.deepEqual(List.concat(a2, a1), [4, 5, 6]);
+    });
+
+});
+
+
+describe('List#concatr', function () {
+
+    it('works on a regular example', function () {
+        const a1 = [0, 1, 2, 3];
+        const a2 = [4, 5, 6];
+        assert.deepEqual(List.concatr(a2, a1), [4, 5, 6, 0, 1, 2, 3]);
+    });
+
+    it('works with incoming empty', function () {
+        const a1 = [0, 1, 2, 3];
+        const a2 = [];
+        assert.deepEqual(List.concatr(a2, a1), [0, 1, 2, 3]);
+    });
+
+    it('works with data empty', function () {
+        const a1 = [];
+        const a2 = [4, 5, 6];
+        assert.deepEqual(List.concatr(a2, a1), [4, 5, 6]);
+    });
+
+});
+
+
 describe('List#findRange', function () {
 
     it('works for list of integers', function () {
