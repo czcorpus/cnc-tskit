@@ -83,6 +83,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 
   * `addUnique<T>(v:T, data:Array<T>):Array<T>`
   * `concat<T>(incoming:Array<T>, data:Array<T>):Array<T>`
+  * `concatr<T>(incoming:Array<T>, data:Array<T>):Array<T>`
   * `empty<T>(data:Array<T>):boolean`
   * `every<T>(pred:(v:T)=>boolean, data:Array<T>):boolean`
   * `filter<T>(pred:(v:T, i:number)=>boolean, data:Array<T>):Array<T>`

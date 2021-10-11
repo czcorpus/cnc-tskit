@@ -564,13 +564,26 @@ export namespace List {
     }
 
     /**
-     * Concat two arrays. Please recall that the working data argument
-     * comes in second (just like in all the other functions).
+     * Concat two arrays with 'data' coming first and then 'incoming'.
+     * Please recall that the 'data' argument comes in second
+     * (just like in all the other functions).
      */
     export function concat<T>(incoming:Array<T>, data:Array<T>):Array<T>;
     export function concat<T>(incoming:Array<T>):(data:Array<T>)=>Array<T>;
     export function concat<T>(incoming:Array<T>, data?:Array<T>):any {
         const fn = (data2:Array<T>):Array<T> => data2.concat(incoming);
+        return data ? fn(data) : fn;
+    }
+
+    /**
+     * Concat two arrays with 'incoming' coming first and then 'data'.
+     * Please recall that the 'data' argument comes in second
+     * (just like in all the other functions).
+     */
+    export function concatr<T>(incoming:Array<T>, data:Array<T>):Array<T>;
+    export function concatr<T>(incoming:Array<T>):(data:Array<T>)=>Array<T>;
+    export function concatr<T>(incoming:Array<T>, data?:Array<T>):any {
+        const fn = (data2:Array<T>):Array<T> => incoming.concat(data2);
         return data ? fn(data) : fn;
     }
 

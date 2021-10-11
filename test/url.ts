@@ -79,21 +79,6 @@ describe('URL#valueToPairs', function () {
         assert.typeOf(URL.valueToPairs(), 'function');
     });
 
-    it('handles other inputs', function () {
-        assert.deepEqual(URL.valueToPairs('3'), [['0', '3']]);
-        assert.deepEqual(URL.valueToPairs(123), [['0', '123']]);
-        assert.deepEqual(URL.valueToPairs(true), [['0', '1']]);
-    });
-
-    it('handles array input', function () {
-        const ans = URL.valueToPairs(['a', 'b', 'c']);
-        assert.deepEqual(ans, [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]);
-    });
-
-    it('handles null', function () {
-        assert.deepEqual(URL.valueToPairs(null), []);
-    });
-
     it('escapes keys and values', function () {
         const ans = URL.valueToPairs({'key=x': 'one two'});
         assert.deepEqual(ans, [ ['key%3Dx', 'one%20two']])

@@ -35,7 +35,7 @@ export namespace URL {
             );
     }
 
-    type EntriesOf<T> = Array<[keyof T, T[keyof T]]>;
+    type EntriesOf<T extends {}> = Array<[keyof T, T[keyof T]]>;
 
     /**
      * Convert a value (typically an object) to a list of [key, value] pairs
@@ -56,9 +56,9 @@ export namespace URL {
      * 'null' is converted into an empty array
      * Other values (string, number, bool,...) return a single pair with key '0'
      */
-    export function valueToPairs<T>(obj:T):Array<[string, string]>;
-    export function valueToPairs<T>():(obj:T)=>Array<[string, string]>;
-    export function valueToPairs<T>(obj?:T):any {
+    export function valueToPairs<T extends {}>(obj:T):Array<[string, string]>;
+    export function valueToPairs<T extends {}>():(obj:T)=>Array<[string, string]>;
+    export function valueToPairs<T extends {}>(obj?:T):any {
 
 
         const toEntries = (v:T) => {
