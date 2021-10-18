@@ -20,6 +20,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 import path from 'path';
+import dts from 'rollup-plugin-dts';
 
 const external = ['chai', ...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
 
@@ -49,5 +50,13 @@ export default [
 		plugins: [
 			esbuild()
 		]
-    }
+    },
+	{
+		input: 'src/index.ts',
+    	output: {
+      		file: path.resolve(path.dirname(pkg.module), 'cnc-tskit.d.ts'),
+      		format: 'es'
+    	},
+		plugins: [dts()]
+	}
 ];
