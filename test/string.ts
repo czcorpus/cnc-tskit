@@ -78,5 +78,39 @@ describe('Strings#shortenText', function () {
     it('suffix not used in case not necessary', function () {
         const short = Strings.shortenText('the people', 10, '_');
         assert.equal(short, 'the people');
-    })
+    });
+});
+
+
+describe('Strings#substitute', function () {
+
+    it('works with a regular string and multiple substitutions', function () {
+        const s = 'This is the {}th attempt to resolve this {}';
+        assert.strictEqual(Strings.substitute(s, 9, 'issue'), 'This is the 9th attempt to resolve this issue');
+    });
+
+    it('ignores escaped braces', function () {
+        const s = 'Hi {} of {{}}'
+        assert.strictEqual(Strings.substitute(s, 'people'), 'Hi people of {}');
+    });
+
+    it('uses empty strings if there is more {}\'s than values', function () {
+        const s = 'One {} {}.'
+        assert.strictEqual(Strings.substitute(s, 'two'), 'One two .');
+    });
+
+    it('ignores spare values', function () {
+        const s = '{}'
+        assert.strictEqual(Strings.substitute(s, 'one', 'two', 'three'), 'one');
+    });
+
+    it('supports function as value', function () {
+        const s = 'zero {}, one {}, two is 2'
+        const ans = Strings.substitute(
+            s,
+            i => 'is ' + i,
+            i => 'is ' + i
+        );
+        assert.strictEqual(ans, 'zero is 0, one is 1, two is 2');
+    });
 });

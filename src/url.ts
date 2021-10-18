@@ -17,7 +17,7 @@
  */
 
 import { List } from './collections/list';
-import { pipe, tuple } from './index';
+import { pipe, tuple } from './root';
 
 
 export namespace URL {
