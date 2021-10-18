@@ -31,4 +31,35 @@ export namespace Strings {
         const s = ans.join(' ');
         return s.length <= maxLength ? s : s.substr(0, maxLength) + suff;
     }
+
+    /**
+     * Replace all the occurrences of '{}' with provided arguments.
+     * Behavior details:
+     *  - in case there is more '{}'s than actual values the rest will be replaced
+     *    by empty strings
+     *  - in case there is more values than '{}' the rest of values is ignored
+     *  - in case the value is a function then it will be evaluated
+     *    passing it the index (0-based) of a respective '{}' occurrence
+     *  - to write actual '{}', just escape the braces with backslashes
+     *  - null and undefined are interpreted as empty strings
+     * Please note there are no advanced formatting options possible here
+     * (e.g. like in Python str.format, sprintf etc.).
+     */
+    export function substitute(
+        template:string,
+        ...values:Array<string|number|boolean|((i:number)=>string|number|boolean)>
+    ):string {
+
+        let i = -1;
+        return template.replace(/{{}}/g, '\\{\\}').replace(
+            /{}/g,
+            () => {
+                i += 1;
+                const value = values[i];
+                const replacement = typeof value === 'function' ? value(i) : value;
+                return replacement !== null && replacement !== undefined ?
+                    replacement + '' : '';
+            }
+        ).replace(/\\{\\}/g, '{}');
+    }
 }
