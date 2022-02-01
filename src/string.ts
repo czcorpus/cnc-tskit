@@ -62,4 +62,37 @@ export namespace Strings {
             }
         ).replace(/\\{\\}/g, '{}');
     }
+
+    /**
+     * Overwrite string 'orig' by a string 'overwrite' starting from right. In case
+     * the 'overwrite' is longer than the 'orig' only a respective suffix of 'overwrite'
+     * is used so the final size of the string is always equal to the size of 'orig'.
+     */
+    export function overwriteStringFromRight(orig:string, overwrite:string):string {
+        const ans:Array<string> = [];
+        for (let i = 0; i < Math.max(orig.length - overwrite.length, 0); i++) {
+            ans.push(orig[i]);
+        }
+        for (let i = Math.max(overwrite.length - orig.length, 0); i < overwrite.length; i++) {
+            ans.push(overwrite[i]);
+        }
+        return ans.join('');
+    }
+
+    /**
+     * Overwrite string 'orig' by a string 'overwrite' starting from left. In case
+     * the 'overwrite' is longer than the 'orig' only a respective prefix of 'overwrite'
+     * is used so the final size of the string is always equal to the size of 'orig'.
+     */
+     export function overwriteStringFromLeft(orig:string, overwrite:string):string {
+        const ans:Array<string> = [];
+        for (let i = 0; i < Math.min(orig.length, overwrite.length); i++) {
+            ans.push(overwrite[i]);
+        }
+        for (let i = Math.min(orig.length, overwrite.length); i < orig.length ; i++) {
+            ans.push(orig[i]);
+        }
+
+        return ans.join('');
+    }
 }
