@@ -114,3 +114,53 @@ describe('Strings#substitute', function () {
         assert.strictEqual(ans, 'zero is 0, one is 1, two is 2');
     });
 });
+
+
+describe('Strings#overwriteStringFromRight', function () {
+
+    it('works with overwrite shorter than orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromRight('0123456789', 'foo'), '0123456foo');
+    });
+
+    it('works with overwrite longer than orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromRight('0123456789', 'foo_and_bar_and_baz'), 'ar_and_baz');
+    });
+
+    it('works with overwrite of the same size as orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromRight('0123456789', 'foo_and_ba'), 'foo_and_ba');
+    });
+
+    it('works with empty overwrite', function () {
+        assert.strictEqual(Strings.overwriteStringFromRight('0123456789', ''), '0123456789');
+    });
+
+    it('works with empty orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromRight('', 'foo'), '');
+    });
+
+});
+
+
+describe('Strings#overwriteStringFromLeft', function () {
+
+    it('works with overwrite shorter than orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromLeft('0123456789', 'foo'), 'foo3456789');
+    });
+
+    it('works with overwrite longer than orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromLeft('0123456789', 'foo_and_bar_and_baz'), 'foo_and_ba');
+    });
+
+    it('works with overwrite of the same size as orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromLeft('0123456789', 'foo_and_ba'), 'foo_and_ba');
+    });
+
+    it('works with empty overwrite', function () {
+        assert.strictEqual(Strings.overwriteStringFromLeft('0123456789', ''), '0123456789');
+    });
+
+    it('works with empty orig', function () {
+        assert.strictEqual(Strings.overwriteStringFromLeft('', 'foo'), '');
+    });
+
+});
