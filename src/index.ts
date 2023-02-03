@@ -39,3 +39,5 @@ export { Client } from './client';
 export { Time } from './time';
 
 export { URL } from './url';
+
+export { Rx } from './rx';

@@ -7,7 +7,8 @@
       "declaration": true,
       "declarationDir": ".",
       "inlineSourceMap": true,
-      "strictNullChecks": true
+      "strictNullChecks": true,
+      "moduleResolution": "node"
     },
     "include": [
         "./src/**/*",
