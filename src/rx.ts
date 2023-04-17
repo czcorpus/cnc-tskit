@@ -22,6 +22,9 @@ import { tuple } from '.';
 
 export namespace Rx {
 
+    /**
+     *  Zip each value produced by observable 'o' with a single provided value 'value'
+     */
     export function zippedWith<T, U>(value:U, data:Observable<T>):Observable<[T, U]>;
     export function zippedWith<T, U>(value:U):(data:Observable<T>)=>Observable<[T, U]>;
     export function zippedWith<T, U>(value:U, data?:Observable<T>):any {
