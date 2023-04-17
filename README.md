@@ -153,6 +153,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 
 ## Strings
 
+  * `escapeRegexp(s:string):string`
   * `shortenText(text:string, maxLength:number, suff:string='\u2026'):string`
   * `function substitute(template:string, ...values:Array<string|number|boolean|((i:number)=>string|number|boolean)>):string`
   * `function overwriteStringFromLeft(orig:string, overwrite:string):string`

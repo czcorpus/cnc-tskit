@@ -164,3 +164,31 @@ describe('Strings#overwriteStringFromLeft', function () {
     });
 
 });
+
+
+describe('Stdrings#escapeRegexp', function () {
+//[\-\\^$*+?.()|[\]{}]
+    it('escapes square brackets', function () {
+        assert.strictEqual(Strings.escapeRegexp('a[0] = 10'), 'a\\[0\\] = 10');
+    });
+
+    it('escapes curly brackets', function () {
+        assert.strictEqual(Strings.escapeRegexp('set: {0, 1, 2, 3}'), 'set: \\{0, 1, 2, 3\\}');
+    });
+
+    it('escapes parentheses', function () {
+        assert.strictEqual(Strings.escapeRegexp('good (or even the best) thing'), 'good \\(or even the best\\) thing');
+    });
+
+    it('escapes dot, plus, star', function () {
+        assert.strictEqual(Strings.escapeRegexp('I give it ***. 1 + 2'), 'I give it \\*\\*\\*\\. 1 \\+ 2');
+    });
+
+    it('escapes pipe, dash, backslash', function () {
+        assert.strictEqual(Strings.escapeRegexp('foo|bar - \\location'), 'foo\\|bar \\- \\\\location');
+    });
+
+    it('escapes dollar, caret, question mark', function () {
+        assert.strictEqual(Strings.escapeRegexp('What is X^Y? The $ is OK'), 'What is X\\^Y\\? The \\$ is OK');
+    });
+})
