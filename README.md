@@ -151,6 +151,10 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * `roundToPos(v:number, numPos:number):number`
   * `wilsonConfInterval(v:number, base:number, alphaId:AlphaLevel):[number, number]`
 
+## Rx
+
+  * `zippedWith<T, U>(value:T, Observable<U>):Observable<Array<[T, U]>>`
+
 ## Strings
 
   * `escapeRegexp(s:string):string`
