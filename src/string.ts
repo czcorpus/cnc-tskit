@@ -95,4 +95,12 @@ export namespace Strings {
 
         return ans.join('');
     }
+
+    /**
+     * Escape regular expression special chars with a backslash so
+     * the special characters will be interpreted as normal ones.
+     */
+    export function escapeRegexp(s:string):string {
+        return s.replace(/[\-\\^$*+?.()|[\]{}]/g, '\\$&');
+    }
 }
