@@ -32,6 +32,8 @@ export { Ident } from './ident';
 
 export { Maths } from './math';
 
+export { Rx } from './rx';
+
 export { Strings } from './string';
 
 export { Client } from './client';
