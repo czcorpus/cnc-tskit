@@ -45,7 +45,7 @@ export namespace List {
      * else return false.
      */
     export function empty<T>(data:Array<T>):boolean;
-    export function empty<T>():(data:Array<T>)=>number;
+    export function empty<T>():(data:Array<T>)=>boolean;
     export function empty<T>(data?:Array<T>):any {
         return data ? data.length === 0 : (data2:Array<T>)=>data2.length === 0;
     }
