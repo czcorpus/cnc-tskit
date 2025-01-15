@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-import { Dict } from './dict';
+import { Dict } from './dict.js';
 
 // NOTE: please note that these functions in general may mutate their
 // arguments as we rely on Immer.js working for us when reducing states.

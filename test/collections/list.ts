@@ -18,7 +18,7 @@
  */
 
 
-import { List } from '../../src/collections/list';
+import { List } from '../../src/collections/list.js';
 import { assert } from 'chai';
 
 describe('List#repeat', function () {

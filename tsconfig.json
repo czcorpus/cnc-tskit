@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
       "rootDir": ".",
-      "module": "esnext",
+      "module": "node16",
       "target": "esnext",
       "outDir": "dist",
       "declaration": true,
       "declarationDir": ".",
       "inlineSourceMap": true,
       "strictNullChecks": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node16"
     },
     "include": [
         "./src/**/*",

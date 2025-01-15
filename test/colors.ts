@@ -1,7 +1,7 @@
 
-import { Color } from '../src/colors';
+import { Color } from '../src/colors.js';
 import { assert } from 'chai';
-import { pipe } from '../src/index';
+import { pipe } from '../src/index.js';
 
 describe('Color#color2str', function () {
 

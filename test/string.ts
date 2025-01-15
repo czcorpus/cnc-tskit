@@ -18,7 +18,7 @@
 
 
 
-import { Strings } from '../src/string';
+import { Strings } from '../src/string.js';
 import { assert } from 'chai';
 
 

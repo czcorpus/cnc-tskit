@@ -17,7 +17,7 @@
  */
 
 import { assert } from 'chai';
-import { List, tuple, id } from '../src/index';
+import { List, tuple, id } from '../src/index.js';
 
 describe('tuple', function () {
 

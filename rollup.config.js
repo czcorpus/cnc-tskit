@@ -1,62 +1,73 @@
-/*
- * Copyright 2018 Tomas Machalek <tomas.machalek@gmail.com>
- * Copyright 2018 Institute of the Czech National Corpus,
- *                Faculty of Arts, Charles University
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import esbuild from 'rollup-plugin-esbuild';
-import { terser } from 'rollup-plugin-terser';
-import pkg from './package.json';
-import path from 'path';
+import terser from '@rollup/plugin-terser';
 import dts from 'rollup-plugin-dts';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+import { readFileSync } from 'fs';
 
-const external = ['chai', ...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const pkg = JSON.parse(
+  readFileSync(new URL('./package.json', import.meta.url), 'utf8')
+);
+
+const external = [
+  'chai',
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.peerDependencies || {})
+];
+
 
 export default [
-	{
-		input: 'src/index.ts',
-		output: {
-			name: 'cnc-tskit',
-			file: pkg.browser,
-			format: 'umd'
-        },
-        external,
-		plugins: [
-			esbuild(),
-            terser()
-		]
+  {
+    input: 'src/index.ts',
+    output: {
+      name: 'cnc-tskit',
+      file: pkg.browser,
+      format: 'umd',
+      sourcemap: true
     },
-	{
-        input: {
-            'index': 'src/index.ts'
-        },
-        output: [
-			{ dir: path.dirname(pkg.main), format: 'cjs' },
-			{ dir: path.dirname(pkg.module), format: 'es' }
-		],
-        external,
-		plugins: [
-			esbuild()
-		]
+    external,
+    plugins: [
+      esbuild({
+        target: 'es2020',
+        sourceMap: true
+      }),
+      terser()
+    ]
+  },
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        dir: dirname(pkg.main),
+        format: 'cjs',
+        sourcemap: true,
+        preserveModules: true,
+        exports: 'named'
+      },
+      {
+        dir: dirname(pkg.module),
+        format: 'es',
+        sourcemap: true,
+        preserveModules: true
+      }
+    ],
+    external,
+    plugins: [
+      esbuild({
+        target: 'es2020',
+        sourceMap: true
+      })
+    ]
+  },
+  {
+    input: 'src/index.ts',
+    output: {
+      file: resolve(dirname(pkg.module), 'cnc-tskit.d.ts'),
+      format: 'es'
     },
-	{
-		input: 'src/index.ts',
-    	output: {
-      		file: path.resolve(path.dirname(pkg.module), 'cnc-tskit.d.ts'),
-      		format: 'es'
-    	},
-		plugins: [dts()]
-	}
+    plugins: [dts()]
+  }
 ];

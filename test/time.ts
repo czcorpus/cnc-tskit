@@ -17,9 +17,9 @@
  */
 
 
-import { Time } from '../src/time';
+import { Time } from '../src/time.js';
 import { assert } from 'chai';
-import { pipe } from '../src/index';
+import { pipe } from '../src/index.js';
 
 describe('Time#secs2hms', function () {
 

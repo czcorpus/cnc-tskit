@@ -18,7 +18,7 @@
 
 
 
-import { Ident } from '../src/ident';
+import { Ident } from '../src/ident.js';
 import { assert } from 'chai';
 
 describe('Ident#hashCode', () => {

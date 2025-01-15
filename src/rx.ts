@@ -17,7 +17,7 @@
  */
 
 import { Observable, map } from 'rxjs';
-import { tuple } from '.';
+import { tuple } from './root.js';
 
 
 export namespace Rx {
