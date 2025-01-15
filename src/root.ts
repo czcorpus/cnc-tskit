@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Fn } from './common';
+import { Fn } from './common.js';
 
 /**
  * Apply one or more functions (from left to right) to a provided argument.

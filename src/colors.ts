@@ -16,7 +16,6 @@
  * limitations under the License.
  */
 
-import { List } from "./collections/list";
 
 export namespace Color {
 

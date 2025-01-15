@@ -18,7 +18,7 @@
 
 
 
-import { Maths } from '../src/math';
+import { Maths } from '../src/math.js';
 import { assert } from 'chai';
 
 

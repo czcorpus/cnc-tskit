@@ -16,28 +16,28 @@
  * limitations under the License.
  */
 
-export { pipe, composeLeft, id, tuple } from './root';
+export { pipe, composeLeft, id, tuple } from './root.js';
 
-export { List } from './collections/list';
+export { List } from './collections/list.js';
 
-export { Dict } from './collections/dict';
+export { Dict } from './collections/dict.js';
 
-export { Color } from './colors';
+export { Color } from './colors.js';
 
-export { HTTP } from './http';
+export { HTTP } from './http.js';
 
-export { Keyboard } from './keyboard';
+export { Keyboard } from './keyboard.js';
 
-export { Ident } from './ident';
+export { Ident } from './ident.js';
 
-export { Maths } from './math';
+export { Maths } from './math.js';
 
-export { Rx } from './rx';
+export { Rx } from './rx.js';
 
-export { Strings } from './string';
+export { Strings } from './string.js';
 
-export { Client } from './client';
+export { Client } from './client.js';
 
-export { Time } from './time';
+export { Time } from './time.js';
 
-export { URL } from './url';
+export { URL } from './url.js';

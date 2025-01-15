@@ -18,7 +18,7 @@
 
 
 
-import { URL } from '../src/url';
+import { URL } from '../src/url.js';
 import { assert } from 'chai';
 
 

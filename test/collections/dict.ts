@@ -18,9 +18,8 @@
  */
 
 
-import { Dict } from '../../src/collections/dict';
+import { Dict } from '../../src/collections/dict.js';
 import { assert } from 'chai';
-import { tuple } from '../../src/index';
 
 const mkData = ():{[k:string]:number} => ({a: 10, b: 20});
 const mkDataEntries = ():Array<[string, number]> => ([['a', 10], ['b', 20]]);

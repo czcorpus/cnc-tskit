@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { DictType, KeyArgType } from '../common';
+import { DictType, KeyArgType } from '../common.js';
 
 
 /**

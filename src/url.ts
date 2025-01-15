@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-import { List } from './collections/list';
-import { pipe, tuple } from './root';
+import { List } from './collections/list.js';
+import { pipe, tuple } from './root.js';
 
 
 export namespace URL {
