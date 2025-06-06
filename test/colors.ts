@@ -176,3 +176,14 @@ describe('rgb2hex', function () {
   });
 
 });
+
+
+describe('highlight', function () {
+
+  it('generates proper values', function () {
+    const v = Color.highlight(0.3, [140, 40, 50, 0.3]);
+    console.log('v = ', v);
+    assert.deepEqual(v, [216, 117, 127, 1]); // the color model conv. ignores alpha
+  });
+
+});

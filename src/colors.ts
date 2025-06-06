@@ -193,4 +193,18 @@ export namespace Color {
         }
         return rgb ? fn(rgb) : fn;
     }
+
+    export function highlight(amount:number, rgb:RGBA):RGBA;
+    export function highlight(amount:number):(rgb:RGBA)=>RGBA;
+    export function highlight(amount:number, rgb?:RGBA):any {
+        const fn = (rgb2:RGBA) => {
+            if (amount < 0 || amount > 1) {
+                throw new Error('amount must be between 0 and 1');
+            }
+            const [h, s, l] = rgb2Hsl(rgb2);
+            const newL = Math.min(0.95, l + amount);
+            return hsl2Rgb([h, s, newL]);
+        };
+        return rgb ? fn(rgb) : fn;
+    }
 }
