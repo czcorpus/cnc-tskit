@@ -72,3 +72,85 @@ describe('Maths#calcPercentRatios', function () {
         assert.equal(ans.reduce((acc, curr) => acc + curr.ratio, 0), 100);
     });
 });
+
+
+describe('Maths#chiSquareTest', function () {
+
+    it('correctly tests a fair die (non-significant)', function () {
+        // Test values verified with scipy.stats.chisquare
+        const result = Maths.chiSquareTest(
+            [14, 18, 12, 16, 20, 20],
+            [1/6, 1/6, 1/6, 1/6, 1/6, 1/6]
+        );
+        assert.equal(result.df, 5);
+        assert.closeTo(result.chi2, 3.2, 0.001);
+        assert.closeTo(result.pValue, 0.669183, 0.001);
+        assert.isFalse(result.isSignificant);
+    });
+
+    it('correctly tests a coin flip with slight bias (borderline)', function () {
+        // Test values verified with scipy.stats.chisquare
+        const result = Maths.chiSquareTest(
+            [60, 40],
+            [0.5, 0.5]
+        );
+        assert.equal(result.df, 1);
+        assert.closeTo(result.chi2, 4.0, 0.001);
+        assert.closeTo(result.pValue, 0.0455, 0.001);
+        assert.isTrue(result.isSignificant);
+    });
+
+    it('correctly identifies significantly different distribution', function () {
+        // Test values verified with scipy.stats.chisquare
+        const result = Maths.chiSquareTest(
+            [50, 10, 5, 35],
+            [0.25, 0.25, 0.25, 0.25]
+        );
+        assert.equal(result.df, 3);
+        assert.closeTo(result.chi2, 54.0, 0.001);
+        assert.closeTo(result.pValue, 0.0, 0.00001);
+        assert.isTrue(result.isSignificant);
+    });
+
+    it('correctly handles perfect fit', function () {
+        // Test values verified with scipy.stats.chisquare
+        const result = Maths.chiSquareTest(
+            [25, 25, 25, 25],
+            [0.25, 0.25, 0.25, 0.25]
+        );
+        assert.equal(result.df, 3);
+        assert.closeTo(result.chi2, 0.0, 0.001);
+        assert.closeTo(result.pValue, 1.0, 0.001);
+        assert.isFalse(result.isSignificant);
+    });
+
+    it('correctly computes for non-uniform expected distribution', function () {
+        // Test with non-uniform expected distribution
+        const result = Maths.chiSquareTest(
+            [30, 40, 30],
+            [0.3, 0.4, 0.3]
+        );
+        assert.equal(result.df, 2);
+        assert.closeTo(result.chi2, 0.0, 0.001);
+        assert.closeTo(result.pValue, 1.0, 0.001);
+        assert.isFalse(result.isSignificant);
+    });
+
+    it('respects custom alpha threshold', function () {
+        const result1 = Maths.chiSquareTest(
+            [60, 40],
+            [0.5, 0.5],
+            0.01  // More stringent threshold
+        );
+        assert.closeTo(result1.pValue, 0.0455, 0.001);
+        assert.isFalse(result1.isSignificant);  // p=0.0455 > 0.01
+
+        const result2 = Maths.chiSquareTest(
+            [60, 40],
+            [0.5, 0.5],
+            0.1  // More lenient threshold
+        );
+        assert.closeTo(result2.pValue, 0.0455, 0.001);
+        assert.isTrue(result2.isSignificant);  // p=0.0455 < 0.1
+    });
+});
