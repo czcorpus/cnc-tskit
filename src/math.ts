@@ -69,4 +69,81 @@ export namespace Maths {
         return values ? fn(values): fn;
     }
 
+    function lngamma(z: number):number {
+        const g = 7;
+        const p = [ // see https://en.wikipedia.org/wiki/Lanczos_approximation
+        0.99999999999980993,
+        676.5203681218851,
+        -1259.1392167224028,
+        771.32342877765313,
+        -176.61502916214059,
+        12.507343278686905,
+        -0.13857109526572012,
+        9.9843695780195716e-6,
+        1.5056327351493116e-7
+        ];
+        if (z < 0.5) {
+            return Math.log(Math.PI / Math.sin(Math.PI * z)) - lngamma(1.0 - z);
+        }
+        z -= 1;
+        let x = p[0];
+        for (let i = 1; i < g + 2; i++) {
+            x += p[i] / (z + i);
+        }
+        let t = z + g + 0.5;
+        return Math.log(Math.sqrt(2 * Math.PI)) + Math.log(t) * (z + 0.5) - t + Math.log(x);
+    }
+
+    function incompleteGamma(s: number, x:number): number {
+        if (x < 0.0) {
+            return 0.0;
+        }
+
+        let sum = 1.0 / s;
+        let term = sum;
+
+        // Taylor expansion for the approx.
+        for (let i = 1; i < 100; i++) {
+            term = (term * x) / (s + i);
+            sum += term;
+            if (term < sum * 1e-15) break;
+        }
+
+        return sum * Math.exp(-x + s * Math.log(x) - lngamma(s));
+    }
+
+    /**
+     * Goodness of fit chi-square test
+     * @param {number[]} observed - Absolute observed values
+     * @param {number[]} expectedProps - Relative expected ratios (0...1)
+     * @param {number} alpha - Significance level threshold (default: 0.05)
+     * @returns {object} Test results containing chi2 statistic, degrees of freedom, p-value, and significance
+     */
+    export function chiSquareTest(observed: Array<number>, expectedProps: Array<number>, alpha: number = 0.05):{
+        chi2: number;
+        df: number;
+        pValue: number;
+        isSignificant: boolean;
+    } {
+        const totalObserved = observed.reduce((a, b) => a + b, 0);
+
+        let chi2 = 0;
+        for (let i = 0; i < observed.length; i++) {
+            const expected = expectedProps[i] * totalObserved;
+            if (expected > 0) {
+                chi2 += Math.pow(observed[i] - expected, 2) / expected;
+            }
+        }
+
+        const df = observed.length - 1;
+
+        const pValue = 1.0 - incompleteGamma(df / 2.0, chi2 / 2.0);
+
+        return {
+            chi2: chi2,
+            df: df,
+            pValue: pValue,
+            isSignificant: pValue < alpha
+        };
+    }
 }

@@ -150,6 +150,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * `calcPercentRatios<T, U>(get:(v:T)=>number, trans:(v:T, ratio:number)=>U, values:Array<T>):Array<U>`
   * `roundToPos(v:number, numPos:number):number`
   * `wilsonConfInterval(v:number, base:number, alphaId:AlphaLevel):[number, number]`
+  * `chiSquareTest(observed: Array<number>, expectedProps: Array<number>, alpha: number = 0.05 :{ chi2: number; df: number; pValue: number; isSignificant: boolean}`
 
 ## Rx
 
