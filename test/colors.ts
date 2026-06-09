@@ -33,6 +33,32 @@ describe('Color#luminosity', function () {
 
 });
 
+describe('Color#saturation', function () {
+
+  it('reduces saturation of a vivid color', function () {
+    assert.deepEqual(Color.saturation(0.5, [255, 0, 0, 1]), [191, 64, 64, 1]);
+  });
+
+  it('fully desaturates a color to grey', function () {
+    assert.deepEqual(Color.saturation(0, [255, 0, 0, 1]), [128, 128, 128, 1]);
+  });
+
+  it('clamps saturation at 1 when value exceeds 1', function () {
+    assert.deepEqual(Color.saturation(2, [255, 0, 0, 1]), [255, 0, 0, 1]);
+  });
+
+  it('leaves grey unchanged regardless of value', function () {
+    assert.deepEqual(Color.saturation(2, [128, 128, 128, 1]), [128, 128, 128, 1]);
+  });
+
+  it('does not accept negative values', function () {
+    assert.throws(function () {
+      Color.saturation(-1, [255, 0, 0, 1]);
+    });
+  });
+
+});
+
 describe('Color#importColor', function () {
 
   it('imports hex color with hash prefix', function () {
