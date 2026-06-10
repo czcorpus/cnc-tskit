@@ -48,6 +48,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * `hsl2Rgb(hsl:[number, number, number]):RGBA`
   * `importColor(opacity:number, color:string):RGBA`
   * `luminosity(value:number, color:RGBA):RGBA`
+  * `saturation(value:number, color:RGBA):RGBA`
   * `rgb2Hex(rgb:RGBA):string`
   * `rgb2Hsl(rgb:RGBA):[number, number, number]`
   * `textColorFromBg(bgColor:RGBA):RGBA`

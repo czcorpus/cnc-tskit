@@ -61,6 +61,21 @@ export namespace Color {
         return color ? fn(color) : fn;
     }
 
+    export function saturation(value:number, color:RGBA):RGBA;
+    export function saturation(value:number):(color:RGBA)=>RGBA;
+    export function saturation(value:number, color?:RGBA):any {
+        const fn = (color2:RGBA):RGBA => {
+            if (value < 0) {
+                throw new Error('Cannot use negative saturation');
+            }
+            const [h, s, l] = rgb2Hsl(color2);
+            const ans = hsl2Rgb([h, Math.min(1, s * value), l]);
+            ans[3] = color2[3];
+            return ans;
+        };
+        return color ? fn(color) : fn;
+    }
+
     export function importColor(opacity:number, color:string):RGBA;
     export function importColor(opacity:number):(color:string)=>RGBA;
     export function importColor(opacity:number, color?:string):any {
