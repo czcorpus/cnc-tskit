@@ -140,9 +140,42 @@ export namespace Maths {
         const pValue = 1.0 - incompleteGamma(df / 2.0, chi2 / 2.0);
 
         return {
-            chi2: chi2,
-            df: df,
-            pValue: pValue,
+            chi2,
+            df,
+            pValue,
+            isSignificant: pValue < alpha
+        };
+    }
+
+
+    export function logLikelihoodTest(
+        observed: Array<number>,
+        expectedProps: Array<number>,
+        alpha: number = 0.05
+    ): {
+        g2: number;
+        df: number;
+        pValue: number;
+        isSignificant: boolean;
+    } {
+        const totalObserved = observed.reduce((a, b) => a + b, 0);
+
+        let g2 = 0;
+        for (let i = 0; i < observed.length; i++) {
+            const expected = expectedProps[i] * totalObserved;
+            const obs = observed[i];
+            if (obs > 0 && expected > 0) {
+                g2 += obs * Math.log(obs / expected);
+            }
+        }
+        g2 *= 2;
+        const df = observed.length - 1;
+        const pValue = 1.0 - incompleteGamma(df / 2.0, g2 / 2.0);
+
+        return {
+            g2,
+            df,
+            pValue,
             isSignificant: pValue < alpha
         };
     }

@@ -154,3 +154,96 @@ describe('Maths#chiSquareTest', function () {
         assert.isTrue(result2.isSignificant);  // p=0.0455 < 0.1
     });
 });
+
+
+describe('Maths#logLikelihoodTest', function () {
+
+    it('correctly tests a fair die (non-significant)', function () {
+        // Test values verified with implementation
+        const result = Maths.logLikelihoodTest(
+            [14, 18, 12, 16, 20, 20],
+            [1/6, 1/6, 1/6, 1/6, 1/6, 1/6]
+        );
+        assert.equal(result.df, 5);
+        assert.closeTo(result.g2, 3.284, 0.01);
+        assert.closeTo(result.pValue, 0.656, 0.01);
+        assert.isFalse(result.isSignificant);
+    });
+
+    it('correctly tests a coin flip with slight bias (borderline)', function () {
+        // Test values verified with implementation
+        const result = Maths.logLikelihoodTest(
+            [60, 40],
+            [0.5, 0.5]
+        );
+        assert.equal(result.df, 1);
+        assert.closeTo(result.g2, 4.027, 0.01);
+        assert.closeTo(result.pValue, 0.0448, 0.001);
+        assert.isTrue(result.isSignificant);
+    });
+
+    it('correctly identifies significantly different distribution', function () {
+        // Test values verified with implementation
+        const result = Maths.logLikelihoodTest(
+            [50, 10, 5, 35],
+            [0.25, 0.25, 0.25, 0.25]
+        );
+        assert.equal(result.df, 3);
+        assert.closeTo(result.g2, 58.448, 0.01);
+        assert.closeTo(result.pValue, 0.0, 0.00001);
+        assert.isTrue(result.isSignificant);
+    });
+
+    it('correctly handles perfect fit', function () {
+        // Test values verified with scipy.stats.power_divergence (lambda_='log-likelihood')
+        const result = Maths.logLikelihoodTest(
+            [25, 25, 25, 25],
+            [0.25, 0.25, 0.25, 0.25]
+        );
+        assert.equal(result.df, 3);
+        assert.closeTo(result.g2, 0.0, 0.001);
+        assert.closeTo(result.pValue, 1.0, 0.001);
+        assert.isFalse(result.isSignificant);
+    });
+
+    it('correctly computes for non-uniform expected distribution', function () {
+        // Test with non-uniform expected distribution
+        const result = Maths.logLikelihoodTest(
+            [30, 40, 30],
+            [0.3, 0.4, 0.3]
+        );
+        assert.equal(result.df, 2);
+        assert.closeTo(result.g2, 0.0, 0.001);
+        assert.closeTo(result.pValue, 1.0, 0.001);
+        assert.isFalse(result.isSignificant);
+    });
+
+    it('respects custom alpha threshold', function () {
+        const result1 = Maths.logLikelihoodTest(
+            [60, 40],
+            [0.5, 0.5],
+            0.01  // More stringent threshold
+        );
+        assert.closeTo(result1.pValue, 0.0448, 0.001);
+        assert.isFalse(result1.isSignificant);  // p=0.0448 > 0.01
+
+        const result2 = Maths.logLikelihoodTest(
+            [60, 40],
+            [0.5, 0.5],
+            0.1  // More lenient threshold
+        );
+        assert.closeTo(result2.pValue, 0.0448, 0.001);
+        assert.isTrue(result2.isSignificant);  // p=0.0448 < 0.1
+    });
+
+    it('handles zero observed values gracefully', function () {
+        // When observed value is 0, log(obs/expected) term is skipped
+        const result = Maths.logLikelihoodTest(
+            [0, 50, 50],
+            [1/3, 1/3, 1/3]
+        );
+        assert.equal(result.df, 2);
+        assert.isTrue(result.g2 > 0);  // Should still compute a positive statistic
+        assert.isTrue(result.isSignificant);  // Should detect significant difference
+    });
+});
