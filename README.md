@@ -152,6 +152,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
   * `roundToPos(v:number, numPos:number):number`
   * `wilsonConfInterval(v:number, base:number, alphaId:AlphaLevel):[number, number]`
   * `chiSquareTest(observed: Array<number>, expectedProps: Array<number>, alpha: number = 0.05 :{ chi2: number; df: number; pValue: number; isSignificant: boolean}`
+  * `logLikelihoodTest(observed: Array<number>, expectedProps: Array<number>, alpha: number = 0.05):{ g2: number; df: number; pValue: number; isSignificant: boolean; }`
 
 ## Rx
 
