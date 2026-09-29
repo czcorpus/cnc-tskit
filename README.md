@@ -83,6 +83,7 @@ function uniqItems(...d:Array<string|Array<string>>):Array<string> {
 ## List
 
   * `addUnique<T>(v:T, data:Array<T>):Array<T>`
+  * `cartesianProduct<T, U>(other: Array<U>, data: Array<T>):Array<[T, U]>`
   * `concat<T>(incoming:Array<T>, data:Array<T>):Array<T>`
   * `concatr<T>(incoming:Array<T>, data:Array<T>):Array<T>`
   * `empty<T>(data:Array<T>):boolean`
