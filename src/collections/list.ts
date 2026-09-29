@@ -675,4 +675,31 @@ export namespace List {
         }
         return data ? fn(data) : fn;
     }
+
+    /**
+     * Generate all ordered pairs from two arrays, i.e. their cartesian product.
+     * Each element of `data` is paired with every element of `other`, preserving
+     * the order: `data` items vary slowest, `other` items vary fastest.
+     *
+     * E.g. List.cartesianProduct([1, 2], ['a', 'b', 'c']) produces
+     * [['a', 1], ['a', 2], ['b', 1], ['b', 2], ['c', 1], ['c', 2]].
+     *
+     * If either input is empty, an empty array is returned.
+     *
+     * @param other - the second set of values
+     * @param data  - the first set of values
+     */
+    export function cartesianProduct<T, U>(other: Array<U>, data: Array<T>): Array<[T, U]>;
+    export function cartesianProduct<T, U>(other: Array<U>):(data: Array<T>)=>Array<[T, U]>;
+    export function cartesianProduct<T, U>(other: Array<U>, data?: Array<T>): any {
+        const fn = (data2:Array<T>):Array<[T, U]> => {
+            const tmp = data2.map(
+                item => other.map(item2 => [item, item2] as [T, U]),
+                data2
+            );
+            return tmp.flatMap(v => v);
+        };
+        return data ? fn(data) : fn;
+    };
+
 }

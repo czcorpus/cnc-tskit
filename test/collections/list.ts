@@ -776,4 +776,58 @@ describe('List#removeAt', function () {
     it('works properly on an empty array', function () {
         assert.throw(() => List.removeAt(0, []));
     });
+});
+
+describe('List#cartesianProduct', function () {
+
+    it('generates proper list of all the pairs', function () {
+        const v1 = ['a', 'b', 'c'];
+        const v2 = [1, 2];
+        const ans = List.cartesianProduct(v2, v1);
+        assert.deepEqual(ans, [ ['a', 1], ['a', 2], ['b', 1], ['b', 2], ['c', 1], ['c', 2] ]);
+    });
+
+    it('returns empty array when data is empty', function () {
+        const ans = List.cartesianProduct([1, 2], [] as Array<string>);
+        assert.deepEqual(ans, []);
+    });
+
+    it('returns empty array when other is empty', function () {
+        const ans = List.cartesianProduct([] as Array<number>, ['a', 'b', 'c']);
+        assert.deepEqual(ans, []);
+    });
+
+    it('returns empty array when both inputs are empty', function () {
+        const ans = List.cartesianProduct([] as Array<number>, [] as Array<string>);
+        assert.deepEqual(ans, []);
+    });
+
+    it('works with single-element arrays', function () {
+        const ans = List.cartesianProduct([42], ['x']);
+        assert.deepEqual(ans, [ ['x', 42] ]);
+    });
+
+    it('works in curried form', function () {
+        const v1 = ['a', 'b'];
+        const v2 = [1, 2];
+        const fn = List.cartesianProduct(v2);
+        const ans = fn(v1);
+        assert.deepEqual(ans, [ ['a', 1], ['a', 2], ['b', 1], ['b', 2] ]);
+    });
+
+    it('does not mutate the input arrays', function () {
+        const v1 = ['a', 'b'];
+        const v2 = [1, 2];
+        List.cartesianProduct(v2, v1);
+        assert.deepEqual(v1, ['a', 'b']);
+        assert.deepEqual(v2, [1, 2]);
+    });
+
+    it('returns a new array instance', function () {
+        const v1 = ['a', 'b'];
+        const v2 = [1, 2];
+        const ans = List.cartesianProduct(v2, v1);
+        assert.notStrictEqual(ans, v1 as any);
+        assert.notStrictEqual(ans, v2 as any);
+    });
 })
